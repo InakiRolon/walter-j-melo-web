@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walter J. Melo — Diseñador & Joyero</title>
+  <meta name="description" content="Diseñador, joyero y orfebre. Clases de joyería y diseño clásico y contemporáneo. Presencial y online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;700&family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ── Cinematic sections runtime (CDN, no build step) ── -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: { preflight: false }, /* preserve existing site CSS */
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Instrument Serif', 'serif'],
+            body:    ['Barlow', 'sans-serif'],
+          },
+          borderRadius: { DEFAULT: '9999px' },
+        },
+      },
+    };
+  </script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+  <script>window.Motion = window.FramerMotion;</script>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --gold-dark: #8a6d2a;
+      --text: #f5f0e8;
+      --text-dim: #a89880;
+      --border: rgba(201, 168, 76, 0.2);
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      line-height: 1.7;
+    }
+
+    /* ── NAV — blanco + dorado, aparece solo al hover ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-bottom: 1px solid rgba(201,168,76,0.35);
+      box-shadow: 0 2px 18px rgba(201,168,76,0.08);
+      backdrop-filter: none;
+      opacity: 0;
+      transition: opacity 0.35s ease, transform 0.4s ease;
+    }
+    nav:hover,
+    nav.nav-at-top { opacity: 1; }
+    nav.nav-hidden {
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo-text {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: #222;
+      line-height: 1.25;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(0,0,0,0.45);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.18s var(--ease-out);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover { color: var(--gold); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 30%, rgba(201,168,76,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    /* Instagram card */
+    .ig-card {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .ig-avatar-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+    }
+
+    .ig-avatar-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #c9a84c 0deg,
+        #f5d78e 90deg,
+        #e8c96a 180deg,
+        #a07830 270deg,
+        #c9a84c 360deg
+      );
+      animation: spin-ring 8s linear infinite;
+    }
+
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .ig-avatar-bg {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    .ig-avatar {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      object-fit: cover;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      background: var(--bg3);
+    }
+
+    .ig-username {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .ig-username svg {
+      color: var(--gold);
+    }
+
+    .ig-stats {
+      display: flex;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .ig-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ig-stat-num {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .ig-stat-label {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin-top: 0.1rem;
+    }
+
+    .ig-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.18s var(--ease-out), color 0.18s var(--ease-out), transform 0.1s var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .ig-follow-btn:hover { background: var(--gold); color: var(--bg); }
+    }
+    .ig-follow-btn:active { transform: scale(0.97); }
+
+    /* Hero text */
+    .hero-text { flex: 1; }
+
+    .hero-eyebrow {
+      display: block;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.7rem, 3.8vw, 3.1rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+
+    .hero-name span {
+      color: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      max-width: 500px;
+    }
+
+    .hero-bio strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: var(--gold);
+      color: var(--bg);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      font-weight: 600;
+      transition: background 0.18s var(--ease-out), transform 0.1s var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { background: var(--gold-light); }
+    }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: border-color 0.18s var(--ease-out), color 0.18s var(--ease-out), transform 0.1s var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    }
+    .btn-outline:active { transform: scale(0.97); }
+
+    /* ── HERO — tema blanco + dorado ── */
+    .hero {
+      background: #f7f6f3;
+    }
+    .hero::before {
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 50%, rgba(201,168,76,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 30%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    }
+    .hero .ig-avatar-ring      { animation: none; } /* anillo estático */
+    .hero .ig-avatar-bg        { background: #f7f6f3; }
+    .hero .ig-username         { color: #444; }
+    .hero .ig-username svg     { color: var(--gold); }
+    .hero .ig-stat-label       { color: #666; }
+    .hero .hero-name           { color: #111; }
+    .hero .hero-name span      { color: var(--gold); }
+    .hero .hero-eyebrow        { color: var(--gold-dark); }
+    .hero .hero-title          { color: #666; }
+    .hero .hero-bio            { color: #444; }
+    .hero .hero-bio strong     { color: #111; }
+    .hero .btn-outline         { border-color: #bbb; color: #444; }
+    @media (hover: hover) and (pointer: fine) {
+      .hero .btn-outline:hover { border-color: var(--gold); color: var(--gold-dark); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-icon {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 500px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #quien-soy {
+      background: var(--bg2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-image-area {
+      position: relative;
+    }
+
+    .about-image-frame {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: 2px;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+
+    .about-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+
+    .about-image-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.4) 0%, transparent 50%);
+    }
+
+    .about-accent-box {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--gold);
+      color: var(--bg);
+      text-align: center;
+      border-radius: 2px;
+    }
+
+    .about-accent-num {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .about-accent-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    .about-text h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .about-text p {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-size: 1.02rem;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .about-tag {
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--bg); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .service-card {
+      background: var(--bg2);
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      transition: background 0.22s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .service-card:hover::before { transform: scaleX(1); }
+      .service-card:hover { background: var(--bg3); }
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .service-name {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .service-badge {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── GALERÍA CAROUSEL ── */
+    #galeria { padding: 0; overflow: hidden; }
+
+    #galCarousel {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden;
+      transition: background-color 650ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .gal-grain {
+      position: absolute; inset: 0; z-index: 50;
+      pointer-events: none; opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      background-size: 200px 200px; background-repeat: repeat;
+    }
+
+    .gal-ghost {
+      position: absolute; top: 18%; inset-x: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; user-select: none; z-index: 2;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(80px, 25vw, 340px);
+      font-weight: 900; color: rgba(255,255,255,0.10);
+      line-height: 1; text-transform: uppercase;
+      letter-spacing: -0.02em; white-space: nowrap;
+    }
+
+    .gal-brand {
+      position: absolute; top: 1.5rem; left: 1.2rem; z-index: 60;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.85);
+    }
+    @media (min-width: 640px) { .gal-brand { left: 2rem; } }
+
+    #galStage { position: absolute; inset: 0; z-index: 3; }
+
+    .gal-item {
+      position: absolute;
+      aspect-ratio: 0.6 / 1;
+      will-change: transform, filter, opacity;
+    }
+
+    .gal-item img {
+      width: 100%; height: 100%;
+      object-fit: contain; object-position: bottom center;
+      user-select: none; -webkit-user-drag: none;
+      mix-blend-mode: screen;
+    }
+
+    .gal-bottom-left {
+      position: absolute; bottom: 1.5rem; left: 1.2rem;
+      z-index: 60; max-width: 300px;
+    }
+    @media (min-width: 640px) { .gal-bottom-left { bottom: 5rem; left: 6rem; max-width: 320px; } }
+
+    .gal-heading {
+      font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.03em;
+      color: white; opacity: 0.95; margin-bottom: 0.5rem;
+    }
+    @media (min-width: 640px) { .gal-heading { font-size: 1.375rem; margin-bottom: 0.75rem; } }
+
+    .gal-desc {
+      display: none; font-family: 'Georgia', serif;
+      font-size: 0.83rem; color: rgba(255,255,255,0.82);
+      line-height: 1.65; margin-bottom: 1.25rem;
+    }
+    @media (min-width: 640px) { .gal-desc { display: block; } }
+
+    .gal-arrows { display: flex; gap: 0.75rem; }
+
+    .gal-arrow {
+      width: 3rem; height: 3rem; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.7); background: transparent;
+      color: white; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
+    }
+    @media (min-width: 640px) { .gal-arrow { width: 4rem; height: 4rem; font-size: 1.3rem; } }
+    @media (hover: hover) and (pointer: fine) {
+      .gal-arrow:hover { transform: scale(1.08); background: rgba(255,255,255,0.12); }
+    }
+    .gal-arrow:active { transform: scale(0.94); }
+
+    /* Dots de fotos múltiples por pieza */
+    .gal-dots {
+      position: absolute;
+      bottom: -1.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .gal-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: background 0.35s ease, transform 0.35s ease;
+    }
+    .gal-dot.gal-dot-active {
+      background: rgba(255,255,255,0.95);
+      transform: scale(1.5);
+    }
+
+    .gal-discover {
+      position: absolute; bottom: 1.5rem; right: 1.2rem; z-index: 60;
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 3.5vw, 3rem);
+      font-weight: 400; color: rgba(255,255,255,0.9);
+      letter-spacing: -0.01em; line-height: 1;
+      text-transform: uppercase; text-decoration: none;
+      transition: opacity 0.2s var(--ease-out), color 0.2s var(--ease-out);
+    }
+    @media (min-width: 640px) { .gal-discover { bottom: 5rem; right: 2.5rem; } }
+    @media (hover: hover) and (pointer: fine) {
+      .gal-discover:hover { opacity: 1; color: var(--gold); }
+    }
+
+    /* ── CLASES ── */
+    #clases { background: var(--bg2); }
+
+    .clases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .clase-card {
+      background: var(--bg3);
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.22s var(--ease-out), background 0.22s var(--ease-out);
+      position: relative;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .clase-card:hover {
+        border-color: var(--gold);
+        background: rgba(201,168,76,0.04);
+      }
+    }
+
+    .clase-tipo {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .clase-name {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .clase-desc {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .clase-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .clase-detail {
+      padding: 0.3rem 0.8rem;
+      background: var(--bg2);
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+    }
+
+    /* ── TIENDA ── */
+    /* ── TIENDA — estilo galería limpia ── */
+    #tienda { background: #f7f6f3; }
+    #tienda .section-eyebrow { color: var(--gold-dark); }
+    #tienda .section-title   { color: #111; }
+    #tienda .section-subtitle{ color: #666; }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #d8d6d0; /* color de las líneas divisoras */
+      border: 1px solid #d8d6d0;
+      margin-top: 2.5rem;
+    }
+
+    .store-card {
+      cursor: pointer;
+      position: relative;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Contenedor de imagen con aspect ratio fijo */
+    .store-card-img {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #fff;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem;
+    }
+
+    .store-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #fff;
+      display: block;
+      transition: transform 0.55s var(--ease-out);
+    }
+    /* Solo las 2 primeras joyas muestran la pieza completa */
+    .store-card:nth-child(-n+2) .store-card-img img {
+      object-fit: contain;
+    }
+
+    /* Zoom en hover — mantiene el efecto original */
+    @media (hover: hover) and (pointer: fine) {
+      .store-card:hover .store-card-img img {
+        transform: scale(1.06);
+      }
+    }
+
+    /* Caption debajo de la imagen */
+    .store-card-caption {
+      padding: 0.7rem 0.85rem 0.85rem;
+      background: #fff;
+      border-top: 1px solid #e8e6e0;
+    }
+
+    .store-card-num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      color: #c0bdb6;
+      display: block;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+    }
+
+    .store-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      color: #1a1a1a;
+      line-height: 1.3;
+      font-weight: 400;
+    }
+
+    .store-card-obra {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      color: #aaa;
+      margin-top: 0.18rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* El overlay oscuro ya no se usa en la nueva tienda */
+    .store-overlay { display: none; }
+
+    /* ── Botón Consultar en cada card ── */
+    .store-card-btn {
+      display: block;
+      width: 100%;
+      padding: 0.6rem;
+      background: none;
+      border: none;
+      border-top: 1px solid #e8e6e0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .store-card-btn:hover { background: #111; color: #fff; }
+    }
+
+    /* ── Detalle de pieza — estilo página de producto ── */
+    #store-detail {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #f7f6f3;
+      overflow-y: auto;
+    }
+    #store-detail.is-open {
+      display: block;
+      animation: detailFadeIn 0.3s ease forwards;
+    }
+    @keyframes detailFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 4.5rem 3rem 5rem;
+    }
+
+    /* Botón volver — fixed arriba a la izquierda */
+    .detail-close {
+      position: fixed;
+      top: 1.4rem; left: 2rem;
+      z-index: 201;
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #111;
+      height: 2.6rem;
+      padding: 0 1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    }
+    .detail-close::before {
+      content: '‹';
+      font-size: 1.3rem;
+      line-height: 1;
+      margin-top: -1px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .detail-close:hover { border-color: #111; background: #111; color: #fff; }
+    }
+
+    /* Columna imagen */
+    .detail-images {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: sticky;
+      top: 4rem;
+      height: fit-content;
+      padding-right: 3rem;
+    }
+
+    .detail-main-img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: contain;
+      background: #fff;
+      display: block;
+      padding: 1.5rem;
+      border: 1px solid #e8e6e0;
+    }
+
+    .detail-thumbs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-thumb {
+      width: 64px; height: 64px;
+      object-fit: contain;
+      background: #fff;
+      border: 1px solid #e0ddd7;
+      padding: 4px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.18s, border-color 0.18s;
+    }
+    .detail-thumb.active, .detail-thumb:hover {
+      opacity: 1;
+      border-color: var(--gold);
+    }
+
+    /* Columna info */
+    .detail-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-left: 3rem;
+      border-left: 1px solid #e0ddd7;
+    }
+
+    .detail-eyebrow {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .detail-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: #111;
+      line-height: 1.1;
+      margin: 0 0 0.4rem;
+    }
+
+    .detail-obra {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-specs {
+      border-top: 1px solid #e0ddd7;
+      border-bottom: 1px solid #e0ddd7;
+      padding: 1.2rem 0;
+      margin-bottom: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .detail-spec {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.87rem;
+    }
+
+    .detail-spec-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #bbb;
+      min-width: 90px;
+      padding-top: 0.15rem;
+    }
+
+    .detail-spec-value { color: #333; }
+
+    .detail-memoria {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.9;
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.2rem;
+      margin: 0 0 2rem;
+    }
+
+    /* CTA principal */
+    .detail-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      background: #111;
+      color: #fff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .detail-cta:hover { background: var(--gold); }
+    }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--bg2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .contact-info p {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .contact-email {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      transition: color 0.18s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-email:hover { color: var(--gold-light); }
+    }
+
+    .contact-socials {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .contact-social {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: border-color 0.18s var(--ease-out), color 0.18s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .contact-social:hover { border-color: var(--gold); color: var(--gold); }
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 0.92rem;
+      padding: 0.8rem 1rem;
+      transition: border-color 0.18s var(--ease-out);
+      width: 100%;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s var(--ease-out), transform 0.1s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .form-submit:hover { background: var(--gold-light); }
+    }
+    .form-submit:active { transform: scale(0.97); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #000;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+    }
+
+    .footer-text {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .footer-text a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.18s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .footer-text a:hover { color: var(--gold-light); }
+    }
+
+    /* ── SELECTOR VISUAL ── */
+    #selector-visual {
+      padding: 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .selector-panels {
+      display: flex;
+      height: 70vh;
+      min-height: 400px;
+    }
+
+    .selector-panel {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: flex 0.55s var(--ease-in-out);
+    }
+
+    .selector-panel.is-active {
+      flex: 4;
+    }
+
+    .selector-panel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s var(--ease-out), filter 0.55s var(--ease-out);
+      filter: grayscale(60%) brightness(0.5);
+    }
+
+    .selector-panel.is-active img {
+      transform: scale(1.03);
+      filter: grayscale(0%) brightness(0.75);
+    }
+
+    .selector-panel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    }
+
+    .selector-panel-label {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1rem;
+      right: 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      transition: color 0.3s var(--ease-out), font-size 0.3s var(--ease-out);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .selector-panel.is-active .selector-panel-label {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .selector-panel-num {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.3s var(--ease-out);
+    }
+
+    .selector-panel.is-active .selector-panel-num {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { flex-direction: column; gap: 3rem; text-align: center; }
+      .hero-bio { margin: 0 auto 2rem; }
+      .hero-ctas { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-accent-box { right: 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .clases-grid { grid-template-columns: 1fr; }
+      .store-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .detail-inner { grid-template-columns: 1fr; }
+      .selector-panels { height: 50vh; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links li:nth-child(n+4) { display: none; }
+      section { padding: 4rem 1.2rem; }
+      .store-grid { grid-template-columns: repeat(2, 1fr); }
+      .selector-panels { flex-direction: column; height: auto; }
+      .selector-panel { flex: none; height: 120px; }
+      .selector-panel.is-active { height: 300px; }
+      .detail-inner { grid-template-columns: 1fr; padding: 4.5rem 1.5rem 4rem; }
+      .detail-images { position: static; padding-right: 0; }
+      .detail-info { padding-left: 0; border-left: none; border-top: 1px solid #e0ddd7; padding-top: 2rem; margin-top: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ── Scroll Film Strip ── */
+    #scroll-film { position: relative; background: radial-gradient(ellipse at 50% 52%, #2a1600 0%, #140b00 42%, #000 100%); }
+    #scroll-film-container { height: 400vh; position: relative; }
+    #scroll-film-sticky {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      background: radial-gradient(ellipse at 50% 52%, #2a1600 0%, #140b00 42%, #000 100%);
+    }
+    #scroll-film-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      display: block; mix-blend-mode: screen;
+    }
+    #sfc-loading {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 5;
+      background: radial-gradient(ellipse at 50% 52%, #2a1600 0%, #140b00 42%, #000 100%);
+      transition: opacity 0.5s ease;
+    }
+    #sfc-loading.sfc-loaded { opacity: 0; pointer-events: none; }
+    .sfc-overlay { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+    .sfc-gradient-top {
+      position: absolute; top: 0; left: 0; right: 0; height: 180px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.7), transparent);
+    }
+    .sfc-gradient-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+      background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+    }
+    .sfc-text-block {
+      position: absolute; bottom: 130px;
+      left: clamp(1.5rem, 8vw, 8rem);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1),
+                  transform 0.7s cubic-bezier(0.23,1,0.32,1);
+    }
+    .sfc-text-block.sfc-visible { opacity: 1; transform: translateY(0); }
+    .sfc-eyebrow {
+      font-family: 'Barlow', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-top: 0.6rem;
+    }
+    .sfc-headline {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      color: #fff; line-height: 1.08; font-weight: 400;
+      letter-spacing: -0.01em; margin: 0;
+    }
+    .sfc-progress {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: rgba(255,255,255,0.08);
+    }
+    .sfc-progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(to right, var(--gold-dark), var(--gold-light));
+      transition: width 0.08s linear;
+    }
+    .sfc-scroll-hint {
+      position: absolute; bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.55); font-family: 'Barlow', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      transition: opacity 0.5s ease;
+    }
+    .sfc-scroll-hint.sfc-hidden { opacity: 0; pointer-events: none; }
+    .sfc-mouse {
+      width: 22px; height: 34px;
+      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 11px;
+      position: relative;
+    }
+    .sfc-mouse::after {
+      content: ''; position: absolute; top: 6px; left: 50%;
+      transform: translateX(-50%); width: 3px; height: 6px;
+      border-radius: 2px; background: rgba(255,255,255,0.5);
+      animation: sfcMouseDot 1.6s ease infinite;
+    }
+    @keyframes sfcMouseDot {
+      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      60%       { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    }
+
+    /* ── Liquid-glass design system (cinematic sections) ── */
+    .liquid-glass {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: none;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.15) 20%,
+        rgba(255,255,255,0)    40%,
+        rgba(255,255,255,0)    60%,
+        rgba(255,255,255,0.15) 80%,
+        rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .liquid-glass-strong {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: none;
+      box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass-strong::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.5)  0%,
+        rgba(255,255,255,0.2)  20%,
+        rgba(255,255,255,0)    40%,
+        rgba(255,255,255,0)    60%,
+        rgba(255,255,255,0.2)  80%,
+        rgba(255,255,255,0.5)  100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="assets/logo.png" alt="Walter J. Melo" style="height:42px;width:auto;">
+      <span class="nav-logo-text">Walter J. Melo<br>Diseñador &amp; Joyero</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#quien-soy">Quién soy</a></li>
+      <li><a href="#tienda">Tienda</a></li>
+      <li><a href="#clases">Clases</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="ig-card fade-in">
+        <div class="ig-avatar-wrapper">
+          <div class="ig-avatar-ring"></div>
+          <div class="ig-avatar-bg"></div>
+          <img class="ig-avatar" src="assets/profile.jpg" alt="Walter J. Melo" onerror="this.style.background='#2a2a2a'">
+        </div>
+        <div class="ig-username">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          @walterjmelo
+        </div>
+        <div class="ig-stats">
+          <div class="ig-stat">
+            <span class="ig-stat-num">948</span>
+            <span class="ig-stat-label">Publicaciones</span>
+          </div>
+          <div class="ig-stat">
+            <span class="ig-stat-num">1,367</span>
+            <span class="ig-stat-label">Seguidores</span>
+          </div>
+          <div class="ig-stat">
+            <span class="ig-stat-num">1,440</span>
+            <span class="ig-stat-label">Siguiendo</span>
+          </div>
+        </div>
+        <a href="https://www.instagram.com/walterjmelo" target="_blank" rel="noopener" class="ig-follow-btn">
+          &#9825; Seguir en Instagram
+        </a>
+      </div>
+
+      <div class="hero-text fade-in" style="transition-delay:0.15s">
+        <span class="hero-eyebrow">Joyero · Orfebre · Docente</span>
+        <div class="hero-name">Walter <span>J.</span> Melo</div>
+        <div class="hero-title">Diseño Clásico &amp; Contemporáneo</div>
+        <p class="hero-bio">
+          Más de <strong>15 años</strong> convirtiendo metal, madera y materiales inesperados en joyas con historia. Cada pieza nace de un relato, de un fragmento encontrado, de una memoria que merece ser usada.
+        </p>
+        <div class="hero-ctas">
+          <a href="#galeria" class="btn-primary">Ver galería →</a>
+          <a href="#contacto" class="btn-outline">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLL FILM STRIP ──────────────────────────────── -->
+  <section id="scroll-film">
+    <div id="scroll-film-container">
+      <div id="scroll-film-sticky">
+        <canvas id="scroll-film-canvas"></canvas>
+        <div id="sfc-loading">
+          <p id="sfc-loading-pct" style="font-family:'Barlow',sans-serif;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.2rem;">Cargando 0%</p>
+          <div style="width:160px;height:2px;background:rgba(255,255,255,0.08);border-radius:1px;overflow:hidden;">
+            <div id="sfc-loading-fill" style="height:100%;width:0%;background:linear-gradient(to right,#8a6d2a,#e8c96a);transition:width 0.08s linear;"></div>
+          </div>
+        </div>
+        <div class="sfc-overlay">
+          <div class="sfc-gradient-top"></div>
+          <div class="sfc-gradient-bottom"></div>
+          <div class="sfc-text-block" data-start="0.05" data-end="0.92">
+            <p class="sfc-headline">Walter J. Melo</p>
+            <span class="sfc-eyebrow">Joyero · Orfebre · Docente</span>
+          </div>
+          <div class="sfc-scroll-hint" id="sfc-scroll-hint">
+            <div class="sfc-mouse"></div>
+            <span>Scroll para descubrir</span>
+          </div>
+          <div class="sfc-progress">
+            <div class="sfc-progress-fill" id="sfc-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria">
+    <div id="galCarousel">
+      <div class="gal-grain"></div>
+      <div class="gal-ghost" id="galGhost">ROSTROS</div>
+      <div class="gal-brand">Walter J. Melo — Colección Rostros</div>
+      <div id="galStage"></div>
+      <div class="gal-bottom-left">
+        <div class="gal-heading" id="galHeading">Expectativa</div>
+        <div class="gal-desc" id="galDesc">Joyas que nacen de la materia y el concepto. Cada pieza, una historia en metal.</div>
+        <div class="gal-arrows">
+          <button class="gal-arrow" id="galPrev" aria-label="Anterior">&#8592;</button>
+          <button class="gal-arrow" id="galNext" aria-label="Siguiente">&#8594;</button>
+        </div>
+      </div>
+      <a href="#tienda" class="gal-discover">Descubrir &#8594;</a>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">◆</span><div class="divider-line"></div></div>
+
+  <!-- QUIÉN SOY -->
+  <section id="quien-soy">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-image-area fade-in">
+          <div class="about-image-frame">
+            <img src="assets/profile.jpg" alt="Walter J. Melo en su taller" onerror="this.style.background='#2a2a2a'">
+          </div>
+          <div class="about-accent-box">
+            <span class="about-accent-num">15+</span>
+            <span class="about-accent-label">años de experiencia</span>
+          </div>
+        </div>
+        <div class="about-text fade-in" style="transition-delay:0.15s">
+          <span class="section-eyebrow">Quién soy</span>
+          <h2>La joyería como lenguaje propio</h2>
+          <p>Soy Walter J. Melo, diseñador y joyero radicado en Argentina. Mi trabajo nace en la intersección entre la tradición orfebre y la experimentación contemporánea: materiales encontrados, texturas orgánicas y narrativas personales dan forma a piezas únicas que cuentan historias.</p>
+          <p>Trabajo con bronce, plata, madera, ébano, huesos, semillas, hojas y resinas. Cada pieza es un encuentro entre la materia y el concepto. La Colección Rostros es mi obra más personal: 16 piezas que exploran la identidad, la memoria y el tiempo a través de retratos en metal.</p>
+          <p>También enseño joyería y diseño de joyas de manera presencial y online, compartiendo técnicas de orfebrería clásica y contemporánea con estudiantes de todo el mundo.</p>
+          <div class="about-tags">
+            <span class="about-tag">Diseño Clásico</span>
+            <span class="about-tag">Diseño Contemporáneo</span>
+            <span class="about-tag">Orfebrería</span>
+            <span class="about-tag">Docente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">◆</span><div class="divider-line"></div></div>
+
+  <!-- TIENDA -->
+  <section id="tienda">
+    <div class="section-inner">
+      <span class="section-eyebrow">Colección Rostros</span>
+      <h2 class="section-title fade-in">Piezas disponibles</h2>
+      <p class="section-subtitle fade-in">16 piezas únicas de joyería conceptual. Cada una, una historia en metal, madera y materia encontrada.</p>
+      <div class="store-grid" id="storeGrid"></div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">◆</span><div class="divider-line"></div></div>
+
+  <!-- CLASES -->
+  <section id="clases">
+    <div class="section-inner">
+      <span class="section-eyebrow">Formación</span>
+      <h2 class="section-title fade-in">Clases de Joyería</h2>
+      <p class="section-subtitle fade-in">Aprende orfebrería y diseño de joyas con técnicas clásicas y contemporáneas. Presencial u online, a tu ritmo.</p>
+      <div class="clases-grid">
+        <div class="clase-card fade-in">
+          <span class="clase-tipo">Presencial</span>
+          <h3 class="clase-name">Taller Presencial de Orfebrería</h3>
+          <p class="clase-desc">Clases en taller con acceso a herramientas y materiales. Trabajamos técnicas de fundición, forja, cincelado, soldadura, acabados y experimentación con materiales no convencionales. Grupos reducidos para atención personalizada.</p>
+          <div class="clase-details">
+            <span class="clase-detail">Todos los niveles</span>
+            <span class="clase-detail">Grupos pequeños</span>
+            <span class="clase-detail">Materiales incluidos</span>
+          </div>
+        </div>
+        <div class="clase-card fade-in" style="transition-delay:0.1s">
+          <span class="clase-tipo">Online</span>
+          <h3 class="clase-name">Clases Online de Joyería</h3>
+          <p class="clase-desc">Formación a distancia con videollamadas en vivo y material de apoyo. Diseño clásico, diseño contemporáneo y técnicas de orfebrería adaptadas al taller en casa. Acceso a comunidad y seguimiento personalizado.</p>
+          <div class="clase-details">
+            <span class="clase-detail">Nivel inicial / intermedio</span>
+            <span class="clase-detail">Videollamada en vivo</span>
+            <span class="clase-detail">A tu ritmo</span>
+          </div>
+        </div>
+        <div class="clase-card fade-in" style="transition-delay:0.2s">
+          <span class="clase-tipo">Diseño Clásico</span>
+          <h3 class="clase-name">Diseño de Joyas Clásico</h3>
+          <p class="clase-desc">Domina el dibujo técnico de joyas, el diseño en papel y la proyección en volumen. Proporciones clásicas, gemas, engastes y composición. La base de todo buen joyero.</p>
+          <div class="clase-details">
+            <span class="clase-detail">Dibujo técnico</span>
+            <span class="clase-detail">Proporciones</span>
+            <span class="clase-detail">Engastes</span>
+          </div>
+        </div>
+        <div class="clase-card fade-in" style="transition-delay:0.3s">
+          <span class="clase-tipo">Diseño Contemporáneo</span>
+          <h3 class="clase-name">Diseño Contemporáneo &amp; Experimental</h3>
+          <p class="clase-desc">Rompe las reglas del diseño convencional. Exploración de materiales orgánicos, metales no preciosos, resinas, texturas y conceptos. Desarrolla tu lenguaje visual propio.</p>
+          <div class="clase-details">
+            <span class="clase-detail">Materiales alternativos</span>
+            <span class="clase-detail">Experimentación</span>
+            <span class="clase-detail">Concepto propio</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:3rem; text-align:center;" class="fade-in">
+        <a href="#contacto" class="btn-primary">Consultar disponibilidad →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">◆</span><div class="divider-line"></div></div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="section-inner">
+      <span class="section-eyebrow">Lo que ofrezco</span>
+      <h2 class="section-title">Servicios</h2>
+      <p class="section-subtitle">Joyas a medida, enseñanza artesanal y piezas de colección disponibles para quienes buscan lo singular.</p>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <span class="service-number">01</span>
+          <span class="service-icon">⬡</span>
+          <h3 class="service-name">Joyas a Medida</h3>
+          <p class="service-desc">Diseño y fabricación de piezas únicas según tu visión. Desde el boceto hasta la pieza terminada, trabajamos juntos en cada detalle. Bronce, plata, oro, materiales orgánicos y mixtos.</p>
+          <span class="service-badge">Encargo personalizado</span>
+        </div>
+        <div class="service-card fade-in" style="transition-delay:0.1s">
+          <span class="service-number">02</span>
+          <span class="service-icon">◈</span>
+          <h3 class="service-name">Orfebrería Artesanal</h3>
+          <p class="service-desc">Técnicas tradicionales aplicadas a conceptos contemporáneos. Fundición, forja, cincelado, granulación. Cada pieza sale del taller con horas de trabajo manual detrás.</p>
+          <span class="service-badge">Hecho a mano</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">◆</span><div class="divider-line"></div></div>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <span class="section-eyebrow">Hablemos</span>
+          <h2>¿Tenés un proyecto en mente?</h2>
+          <p>Escribime para encargar una pieza, consultar sobre clases, o simplemente para hablar de joyas. Respondo todos los mensajes.</p>
+          <a href="mailto:walterjmelo@gmail.com" class="contact-email">
+            ✉ walterjmelo@gmail.com
+          </a>
+          <div class="contact-socials">
+            <a href="https://www.instagram.com/walterjmelo" target="_blank" rel="noopener" class="contact-social">Instagram</a>
+            <a href="https://www.threads.net/@walterjmelo" target="_blank" rel="noopener" class="contact-social">Threads</a>
+          </div>
+        </div>
+        <div class="fade-in" style="transition-delay:0.15s">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label class="form-label" for="cf-name">Nombre</label>
+              <input class="form-input" type="text" id="cf-name" name="nombre" placeholder="Tu nombre completo" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-email">Email</label>
+              <input class="form-input" type="email" id="cf-email" name="email" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-modalidad">¿En qué puedo ayudarte?</label>
+              <select class="form-select" id="cf-modalidad" name="modalidad">
+                <option value="Clases presenciales">Clases presenciales</option>
+                <option value="Clases online">Clases online</option>
+                <option value="Encargo / Joyería a medida">Encargo / Joyería a medida</option>
+                <option value="Compra de piezas — Colección Rostros">Compra de piezas — Colección Rostros</option>
+                <option value="Consulta general">Consulta general</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-msg">Mensaje</label>
+              <textarea class="form-textarea" id="cf-msg" name="mensaje" placeholder="Contame tu idea o tu consulta…" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Enviar mensaje →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIENDA DETAIL OVERLAY -->
+  <div id="store-detail" role="dialog" aria-modal="true" aria-label="Detalle de pieza">
+    <div class="detail-inner">
+      <button class="detail-close" id="detailClose" aria-label="Volver">Volver</button>
+      <div class="detail-images">
+        <img class="detail-main-img" id="detailMainImg" src="" alt="">
+        <div class="detail-thumbs" id="detailThumbs"></div>
+      </div>
+      <div class="detail-info">
+        <div>
+          <span class="detail-eyebrow" id="detailEyebrow">Colección Rostros</span>
+          <h2 class="detail-title" id="detailTitle"></h2>
+          <div class="detail-obra" id="detailObra"></div>
+        </div>
+        <div class="detail-specs" id="detailSpecs"></div>
+        <blockquote class="detail-memoria" id="detailMemoria"></blockquote>
+        <button class="detail-cta" id="detailCta">Consultar por esta pieza →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Walter J. Melo</div>
+      <p class="footer-text">© 2025 Walter J. Melo — Diseñador &amp; Joyero | <a href="mailto:walterjmelo@gmail.com">walterjmelo@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // ── UTILITIES ──
+    /* PNG → JPG universal fallback: intenta .png primero, cae a .jpg si no existe */
+    document.addEventListener('error', function (e) {
+      var el = e.target;
+      if (el.tagName === 'IMG' && el.src.endsWith('.png') && !el.dataset.triedFallback) {
+        el.dataset.triedFallback = '1';
+        el.src = el.src.replace('.png', '.jpg');
+      }
+    }, true);
+
+    function tryLoad(img, src) {
+      img.onerror = null;
+      img.src = src;
+    }
+
+    const MAX = 36;
+
+    // ── CAROUSEL DATA ──
+    // src puede ser una sola foto (string) o varias (array) — el carrusel las cicla automáticamente
+    const CAROUSEL = [
+      { src: 'assets/gallery_1.png',  bg: '#6B2030', nombre: 'Fortín',           numero: '01' },
+      { src: 'assets/galería_2.png',  bg: '#1A3D70', nombre: 'Alivio',           numero: '05' },
+      { src: 'assets/galeria_3.png',  bg: '#1A4A2E', nombre: 'Línea Expresiones', numero: '09' },
+      { src: 'assets/galeria_4.png',  bg: '#5A3B00', nombre: 'Remembranza',      numero: '13' },
+    ];
+
+    // ── STORE DATA ──
+    const PIEZAS = [
+      {
+        n:1, titulo:'Expectativa', obra:'Colgante', medidas:'78mm × 47mm',
+        material:['Bronce','Ébano tallado a mano'],
+        terminacion:'Pulido espejo y arenado cubierto con baño de oro',
+        soporte:'Cadena de bronce bañada en oro',
+        memoria:'La inspiración para esta pieza nace con un recorte en madera de ébano que descartó un lutier, en la cual vi un rostro al que luego daría forma. Con gestos desanimados, los límites de su cara fueron marcados por formas extraídas para dar vida a otros objetos que él siente como valiosos; por eso las líneas doradas y la esfera en la base simbolizan el mundo ideal lleno de brillo al que aspira llegar, sin entender que en sí mismo es una madera preciosa. Esto nos lleva a una reflexión: muchas veces el descontento y las expectativas que nos imponen no nos permiten ver lo que realmente valemos.'
+      },
+      {
+        n:2, titulo:'Remembranza', obra:'Pinche de solapa', medidas:'150mm × 37mm',
+        material:['Plata','Ébano','Circones'],
+        terminacion:null, soporte:null,
+        memoria:'La imagen está compuesta por un rostro completo en el extremo izquierdo que, a medida que avanzamos hacia la derecha, se va distorsionando o deformando, reflejando cómo el tiempo y las experiencias cambian nuestra apariencia y quizás nuestra identidad. Las volutas de metal que acompañan la escena, terminando en tres circones, representan elementos de fragilidad, movimiento o la naturaleza efímera de la memoria. En conjunto, la obra transmite la idea de que la remembranza no es estática, sino un proceso dinámico de cambio y evolución.'
+      },
+      {
+        n:3, titulo:'Trabajador', obra:'Colgante', medidas:'82mm × 37mm',
+        material:['Bronce pulido espejo bañado en oro','Madera de ébano tallada'],
+        terminacion:null, soporte:'Hilo de caucho negro',
+        memoria:'El concepto de la obra representa el rostro de un ser apacible con fracciones fuertes: una persona que puede parecer tranquila pero con aspectos internos sólidos y resistentes. La "frente plana" simboliza estabilidad. La línea de caños que la rodea representa la estructura que protege al trabajador; los caños dorados simbolizan el bienestar económico y la recompensa que la empresa entrega, aunque a la vez requieren de un gran costo personal. Utilizo metáforas visuales para reflexionar sobre la relación entre el trabajador y su entorno laboral, destacando la estabilidad, el beneficio y los sacrificios involucrados.'
+      },
+      {
+        n:4, titulo:'Línea Expresiones', obra:'Broche', medidas:'130mm × 28mm',
+        material:['Bronce','Resina'],
+        terminacion:'Patinado y pulido parcial', soporte:null,
+        memoria:'Historia palpable en metal. El tiempo va cincelando las sombras del enojo hasta dejar solo la nariz, una boca silente y cuencas vacías.'
+      },
+      {
+        n:5, titulo:'Señores de la Naturaleza', obra:'Colgante', medidas:'65mm × 52mm',
+        material:['Corteza de árbol','Bronce'],
+        terminacion:'Baño de oro', soporte:'Cadena de acero inoxidable',
+        memoria:'Cortezas olvidadas tras las podas cobran nueva voz. Cada fragmento guarda el espíritu del árbol y su sabiduría acumulada en silencio.'
+      },
+      {
+        n:6, titulo:'Alivio', obra:'Colgante', medidas:'55mm × 40mm',
+        material:['Plata 925','Circonitas'],
+        terminacion:'Pulido espejo', soporte:'Cadena de plata',
+        memoria:'Doce circonitas evocan las gotas que acarician la tierra, una por cada mes del año, representando el ciclo eterno de las estaciones.'
+      },
+      {
+        n:7, titulo:'Fortín', obra:'Colgante', medidas:'70mm × 60mm',
+        material:['Madera','Bronce'],
+        terminacion:'Natural y oxidado', soporte:'Hilo de cuero',
+        memoria:'Nace de la memoria de una infancia donde la imaginación y la complicidad dieron forma a un castillo construido con humilde madera.'
+      },
+      {
+        n:8, titulo:'Descanso', obra:'Broche', medidas:'90mm × 35mm',
+        material:['Hoja esqueletizada','Bronce'],
+        terminacion:'Baño de oro sobre bronce', soporte:null,
+        memoria:'Una hoja esqueletizada se curva en postura fetal, imitando la transformación silenciosa que precede al vuelo de una mariposa.'
+      },
+      {
+        n:9, titulo:'Línea Apariencias', obra:'Colgante', medidas:'60mm × 45mm',
+        material:['Polenta solidificada','Sal','Papel','Bronce bañado en oro'],
+        terminacion:'Dorado', soporte:'Cadena de bronce dorada',
+        memoria:'Polenta, sal y papel se visten de oro. Un recordatorio de que la apariencia puede deslumbrar, pero la verdadera identidad reside dentro.'
+      },
+      {
+        n:10, titulo:'Caos', obra:'Colgante', medidas:'80mm × 55mm',
+        material:['Restos de impresión 3D','Bronce'],
+        terminacion:'Oxidado y pulido', soporte:'Cadena de acero',
+        memoria:'De los desechos de una impresión 3D fallida surge la pieza. En el enredo de intentos fallidos emerge la pulsión de recomenzar.'
+      },
+      {
+        n:11, titulo:'Láquesis', obra:'Colgante', medidas:'120mm × 20mm',
+        material:['Sisal','Vidrio soplado','Bronce'],
+        terminacion:'Natural', soporte:null,
+        memoria:'Inspirada en la Moira que mide el hilo de la vida. Una solitaria gota de vidrio azul tensa el sisal hasta el punto del quiebre final.'
+      },
+      {
+        n:12, titulo:'Infancia 1', obra:'Broche', medidas:'75mm × 55mm',
+        material:['Arpillera','Bronce'],
+        terminacion:'Oxidado', soporte:null,
+        memoria:'Un fragmento de arpillera que para mis ojos infantiles se metamorfoseaba en mundos infinitos, naves espaciales y castillos imaginarios.'
+      },
+      {
+        n:13, titulo:'Susurros de la Tierra', obra:'Colgante', medidas:'68mm × 48mm',
+        material:['Hojas naturales','Semillas','Bronce'],
+        terminacion:'Baño de cobre', soporte:'Cadena de bronce',
+        memoria:'Hojas caídas y semillas dispersas transformadas en arte. La naturaleza como inteligencia ancestral que fluye, se adapta y renace.'
+      },
+      {
+        n:14, titulo:'Gírgola', obra:'Colgante', medidas:'85mm × 40mm',
+        material:['Bronce'],
+        terminacion:'Pulido espejo y mate combinados', soporte:'Cadena de bronce',
+        memoria:'La danza de las gírgolas al ascender desde la madera inspiró esta espiral que nos conecta con la divina proporción áurea.'
+      },
+      {
+        n:15, titulo:'Ocre', obra:'Broche', medidas:'80mm × 60mm',
+        material:['Hoja esqueletizada','Bronce'],
+        terminacion:'Patinado ocre', soporte:null,
+        memoria:'Una hoja esqueletizada se despoja al compás del viento. La belleza melancólica del otoño capturada en su danza efímera.'
+      },
+      {
+        n:16, titulo:'Nido', obra:'Colgante', medidas:'70mm × 70mm',
+        material:['Bronce','Hilo de plata'],
+        terminacion:'Oxidado y pulido', soporte:'Cadena de bronce',
+        memoria:'Inspirado en los nidos de aves, esos santuarios tejidos con esmero donde la familia se une y los lazos se vuelven eternos.'
+      }
+    ];
+
+    // ── BUILD STORE GRID ──
+    (function buildStore() {
+      const grid = document.getElementById('storeGrid');
+      PIEZAS.forEach(function(p) {
+        const card = document.createElement('div');
+        card.className = 'store-card fade-in';
+        card.innerHTML =
+          '<div class="store-card-img">' +
+            '<img src="assets/gallery_' + p.n + '.png" alt="' + p.titulo + '">' +
+          '</div>' +
+          '<div class="store-card-caption">' +
+            '<span class="store-card-num">' + String(p.n).padStart(2,'0') + '</span>' +
+            '<div class="store-card-title">' + p.titulo + '</div>' +
+            '<div class="store-card-obra">' + p.obra + '</div>' +
+          '</div>' +
+          '<button class="store-card-btn">Consultar</button>';
+        card.addEventListener('click', function() { openDetail(p); });
+        grid.appendChild(card);
+      });
+    })();
+
+    // ── STORE DETAIL ──
+    function openDetail(p) {
+      const overlay = document.getElementById('store-detail');
+      document.getElementById('detailTitle').textContent = p.titulo;
+      document.getElementById('detailObra').textContent = p.obra;
+      document.getElementById('detailMemoria').textContent = p.memoria;
+      document.getElementById('detailEyebrow').textContent = 'Colección Rostros — Pieza ' + String(p.n).padStart(2,'0');
+
+      // Specs
+      var specs = document.getElementById('detailSpecs');
+      specs.innerHTML = '';
+      var rows = [
+        ['Medidas', p.medidas],
+        ['Material', p.material.join(', ')],
+        ['Terminación', p.terminacion],
+        ['Soporte', p.soporte]
+      ];
+      rows.forEach(function(r) {
+        if (!r[1]) return;
+        var row = document.createElement('div');
+        row.className = 'detail-spec';
+        row.innerHTML = '<span class="detail-spec-label">' + r[0] + '</span><span class="detail-spec-value">' + r[1] + '</span>';
+        specs.appendChild(row);
+      });
+
+      // Images — main + extra shots
+      var mainImg = document.getElementById('detailMainImg');
+      var base = 'assets/gallery_' + p.n + '.png';
+      mainImg.src = base;
+      mainImg.alt = p.titulo;
+
+      var thumbsEl = document.getElementById('detailThumbs');
+      thumbsEl.innerHTML = '';
+
+      var shots = [base];
+      var letters = ['b','c','d'];
+      letters.forEach(function(l) {
+        shots.push('assets/gallery_' + p.n + l + '.png');
+      });
+
+      shots.forEach(function(src, i) {
+        var t = document.createElement('img');
+        t.className = 'detail-thumb' + (i === 0 ? ' active' : '');
+        t.alt = p.titulo + ' vista ' + (i + 1);
+        t.src = src;
+        t.onerror = function() { this.style.display = 'none'; };
+        t.addEventListener('click', function() {
+          mainImg.src = src;
+          thumbsEl.querySelectorAll('.detail-thumb').forEach(function(el) { el.classList.remove('active'); });
+          t.classList.add('active');
+        });
+        thumbsEl.appendChild(t);
+      });
+
+      // CTA
+      document.getElementById('detailCta').onclick = function() {
+        var subject = encodeURIComponent('Consulta por pieza: ' + p.titulo);
+        var body = encodeURIComponent('Hola Walter, me interesa la pieza "' + p.titulo + '" (' + p.obra + ') de la Colección Rostros. ¿Podrías darme más información?');
+        window.location.href = 'mailto:walterjmelo@gmail.com?subject=' + subject + '&body=' + body;
+      };
+
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('detailClose').addEventListener('click', function() {
+      document.getElementById('store-detail').classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+
+    document.getElementById('store-detail').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('store-detail').classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ── CAROUSEL ──
+    (function initCarousel() {
+      var carousel = document.getElementById('galCarousel');
+      var stage    = document.getElementById('galStage');
+      var heading  = document.getElementById('galHeading');
+      var ghost    = document.getElementById('galGhost');
+      var current  = 0;
+      var animating = false;
+
+      var VH = window.innerHeight;
+      var VW = window.innerWidth;
+
+      window.addEventListener('resize', function() {
+        VH = window.innerHeight;
+        VW = window.innerWidth;
+        positionItems();
+      });
+
+      var CFG = {
+        imgH: 0.95,   // fracción del VH — más grande que antes
+        spread: 0.22,
+        rotStep: 6,
+        scaleActive: 1,
+        scaleOff: 0.82,
+        opacityOff: 0.35,
+      };
+
+      // Normaliza src a array siempre
+      function getSrcs(d) { return Array.isArray(d.src) ? d.src : [d.src]; }
+
+      // ── Ciclo de fotos por pieza ──
+      var photoTimers = [];
+
+      function setPhoto(itemIdx, photoIdx) {
+        var item = items[itemIdx];
+        var srcs = getSrcs(item.data);
+        item.photoIdx = photoIdx;
+        var img = item.el.querySelector('img');
+        img.style.transition = 'opacity 0.45s ease';
+        img.style.opacity = 0;
+        setTimeout(function() {
+          img.src = srcs[photoIdx];
+          img.style.opacity = 1;
+        }, 230);
+        item.el.querySelectorAll('.gal-dot').forEach(function(dot, di) {
+          dot.classList.toggle('gal-dot-active', di === photoIdx);
+        });
+      }
+
+      function startCycling(idx) {
+        stopCycling(idx);
+        var srcs = getSrcs(items[idx].data);
+        if (srcs.length < 2) return;
+        photoTimers[idx] = setInterval(function() {
+          setPhoto(idx, (items[idx].photoIdx + 1) % srcs.length);
+        }, 2800);
+      }
+
+      function stopCycling(idx) {
+        if (photoTimers[idx]) { clearInterval(photoTimers[idx]); photoTimers[idx] = null; }
+      }
+
+      // ── Build items ──
+      var items = [];
+      CAROUSEL.forEach(function(d) {
+        var srcs = getSrcs(d);
+        var el = document.createElement('div');
+        el.className = 'gal-item';
+        var img = document.createElement('img');
+        img.src = srcs[0];
+        img.alt = d.nombre;
+        img.onerror = function() { el.style.background = 'rgba(255,255,255,0.05)'; };
+        el.appendChild(img);
+
+        if (srcs.length > 1) {
+          var dotsEl = document.createElement('div');
+          dotsEl.className = 'gal-dots';
+          srcs.forEach(function(_, di) {
+            var dot = document.createElement('span');
+            dot.className = 'gal-dot' + (di === 0 ? ' gal-dot-active' : '');
+            dotsEl.appendChild(dot);
+          });
+          el.appendChild(dotsEl);
+        }
+
+        stage.appendChild(el);
+        items.push({ el: el, data: d, photoIdx: 0 });
+        photoTimers.push(null);
+      });
+
+      function positionItems() {
+        var imgH = VH * CFG.imgH;
+        var imgW = imgH * 0.6;
+        var n = items.length;
+
+        items.forEach(function(item, i) {
+          var offset = i - current;
+          while (offset >  n / 2) offset -= n;
+          while (offset < -n / 2) offset += n;
+
+          var x = VW / 2 - imgW / 2 + offset * VW * CFG.spread;
+          // desplaza arriba un poco para dejar espacio al texto inferior
+          var y = VH / 2 - imgH / 2 - VH * 0.04 + Math.abs(offset) * 24;
+          var rot     = offset * CFG.rotStep;
+          var scale   = offset === 0 ? CFG.scaleActive : CFG.scaleOff;
+          var opacity = offset === 0 ? 1 : CFG.opacityOff - Math.min(Math.abs(offset) - 1, 1) * 0.1;
+          var zIndex  = n - Math.abs(offset);
+
+          item.el.style.width     = imgW + 'px';
+          item.el.style.height    = imgH + 'px';
+          item.el.style.left      = x + 'px';
+          item.el.style.top       = y + 'px';
+          item.el.style.transform = 'rotate(' + rot + 'deg) scale(' + scale + ')';
+          item.el.style.opacity   = opacity;
+          item.el.style.zIndex    = zIndex;
+          item.el.style.transition = animating
+            ? 'left 600ms var(--ease-in-out), top 600ms var(--ease-in-out), transform 600ms var(--ease-in-out), opacity 600ms var(--ease-in-out)'
+            : 'none';
+        });
+      }
+
+      function goTo(idx) {
+        if (animating) return;
+        stopCycling(current);
+        animating = true;
+        current = (idx + CAROUSEL.length) % CAROUSEL.length;
+        var d = CAROUSEL[current];
+        carousel.style.backgroundColor = d.bg;
+        heading.textContent = d.nombre;
+        ghost.textContent = d.nombre.toUpperCase().split(' ')[0];
+        positionItems();
+        setTimeout(function() {
+          animating = false;
+          startCycling(current);
+        }, 650);
+      }
+
+      document.getElementById('galPrev').addEventListener('click', function() { goTo(current - 1); });
+      document.getElementById('galNext').addEventListener('click', function() { goTo(current + 1); });
+
+      var touchStartX = 0;
+      carousel.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+      });
+
+      // Init
+      carousel.style.backgroundColor = CAROUSEL[0].bg;
+      positionItems();
+      startCycling(0);
+    })();
+
+    // ── SELECTOR VISUAL ──
+    (function initSelector() {
+      var panels = document.querySelectorAll('.selector-panel');
+      panels.forEach(function(panel) {
+        panel.addEventListener('click', function() {
+          panels.forEach(function(p) { p.classList.remove('is-active'); });
+          panel.classList.add('is-active');
+        });
+        panel.addEventListener('mouseenter', function() {
+          panels.forEach(function(p) { p.classList.remove('is-active'); });
+          panel.classList.add('is-active');
+        });
+      });
+    })();
+
+    // ── CONTACT FORM ──
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nombre = document.getElementById('cf-name').value;
+      var email = document.getElementById('cf-email').value;
+      var modalidad = document.getElementById('cf-modalidad').value;
+      var mensaje = document.getElementById('cf-msg').value;
+      var subject = encodeURIComponent('Contacto web — ' + modalidad);
+      var body = encodeURIComponent(
+        'Nombre: ' + nombre + '\n' +
+        'Email: ' + email + '\n' +
+        'Modalidad: ' + modalidad + '\n\n' +
+        mensaje
+      );
+      window.location.href = 'mailto:walterjmelo@gmail.com?subject=' + subject + '&body=' + body;
+    });
+
+    // ── NAV: visible al inicio, hover-only al scrollear ──
+    (function initNavScroll() {
+      var nav = document.querySelector('nav');
+      if (!nav) return;
+      function update() {
+        nav.classList.toggle('nav-at-top', window.scrollY < 60);
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    // ── FADE IN OBSERVER ──
+    (function initFadeIn() {
+      var els = document.querySelectorAll('.fade-in');
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        els.forEach(function(el) { obs.observe(el); });
+      } else {
+        els.forEach(function(el) { el.classList.add('is-visible'); });
+      }
+    })();
+  </script>
+
+  <!-- ── Cinematic sections: Hero + Capabilities (inline for reliability) ── -->
+  <script type="text/babel" data-presets="react">
+    // ─────────────────────────────────────────────
+    // FadingVideo — rAF crossfade, no CSS transitions
+    // ─────────────────────────────────────────────
+    const FADE_MS       = 500;
+    const FADE_OUT_LEAD = 0.55;
+
+    function FadingVideo({ src, videoClassName, videoStyle }) {
+      const videoRef     = React.useRef(null);
+      const rafRef       = React.useRef(null);
+      const fadingOutRef = React.useRef(false);
+
+      function fadeTo(target, durationMs) {
+        const video = videoRef.current;
+        if (!video) return;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        const t0 = performance.now();
+        const s0 = parseFloat(video.style.opacity) || 0;
+        function tick(now) {
+          const p = Math.min((now - t0) / durationMs, 1);
+          video.style.opacity = String(s0 + (target - s0) * p);
+          rafRef.current = p < 1 ? requestAnimationFrame(tick) : null;
+        }
+        rafRef.current = requestAnimationFrame(tick);
+      }
+
+      React.useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+        function onLoaded() {
+          video.style.opacity = '0';
+          video.play().catch(() => {});
+          fadeTo(1, FADE_MS);
+        }
+        function onTime() {
+          const rem = video.duration - video.currentTime;
+          if (!fadingOutRef.current && video.duration && rem <= FADE_OUT_LEAD && rem > 0) {
+            fadingOutRef.current = true;
+            fadeTo(0, FADE_MS);
+          }
+        }
+        function onEnded() {
+          video.style.opacity = '0';
+          setTimeout(() => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+            fadingOutRef.current = false;
+            fadeTo(1, FADE_MS);
+          }, 100);
+        }
+        video.addEventListener('loadeddata', onLoaded);
+        video.addEventListener('timeupdate', onTime);
+        video.addEventListener('ended',      onEnded);
+        return () => {
+          if (rafRef.current) cancelAnimationFrame(rafRef.current);
+          video.removeEventListener('loadeddata', onLoaded);
+          video.removeEventListener('timeupdate', onTime);
+          video.removeEventListener('ended',      onEnded);
+        };
+      }, [src]);
+
+      return (
+        <video
+          ref={videoRef} src={src} autoPlay muted playsInline preload="auto"
+          className={videoClassName || ''}
+          style={{ opacity: 0, ...(videoStyle || {}) }}
+        />
+      );
+    }
+
+    // ─────────────────────────────────────────────
+    // BlurText — word-by-word IntersectionObserver
+    // ─────────────────────────────────────────────
+    const { motion, AnimatePresence } = Motion;
+
+    function BlurText({ text, className, style: extraStyle }) {
+      const ref = React.useRef(null);
+      const [visible, setVisible] = React.useState(false);
+      React.useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) { setVisible(true); obs.disconnect(); }
+        }, { threshold: 0.1 });
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, []);
+
+      return (
+        <p ref={ref} className={className}
+           style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', rowGap:'0.1em', ...(extraStyle||{}) }}>
+          {text.split(' ').map((word, i) => (
+            <motion.span key={i}
+              initial={{ filter:'blur(10px)', opacity:0, y:50 }}
+              animate={visible ? { filter:['blur(10px)','blur(5px)','blur(0px)'], opacity:[0,0.5,1], y:[50,-5,0] } : {}}
+              transition={{ duration:0.7, times:[0,0.5,1], ease:'easeOut', delay:(i*100)/1000 }}
+              style={{ display:'inline-block', marginRight:'0.28em' }}
+            >{word}</motion.span>
+          ))}
+        </p>
+      );
+    }
+
+    // ─────────────────────────────────────────────
+    // Icons
+    // ─────────────────────────────────────────────
+    const ArrowUpRight = ({ size=20 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+      </svg>
+    );
+    const PlayIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="6 4 20 12 6 20 6 4"/>
+      </svg>
+    );
+    const ClockIcon = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    );
+    const GlobeIcon = () => (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+    );
+
+    // ─────────────────────────────────────────────
+    // HeroSection
+    // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // HeroSlideshow — "desde atrás" z-depth transition
+    // ─────────────────────────────────────────────
+    const HERO_IMAGES = [
+      'assets/gallery_1.png',
+      'assets/gallery_4.png',
+      'assets/gallery_7.png',
+      'assets/gallery_10.png',
+      'assets/gallery_13.png',
+    ];
+
+    // Variantes: z-depth "desde atrás"
+    // enter z:0 (nueva imagen detrás) → exit z:2 (vieja imagen al frente, se agranda y desaparece)
+    const slideVariants = {
+      enter: {
+        scale: 0.28,
+        opacity: 0,
+        filter: 'blur(14px)',
+        zIndex: 0,
+      },
+      center: {
+        scale: 1,
+        opacity: 1,
+        filter: 'blur(0px)',
+        zIndex: 1,
+        transition: { duration: 1.3, ease: [0.16, 1, 0.3, 1] },
+      },
+      exit: {
+        scale: 1.22,
+        opacity: 0,
+        filter: 'blur(6px)',
+        zIndex: 2,
+        transition: { duration: 0.7, ease: [0.4, 0, 0.6, 1] },
+      },
+    };
+
+    function HeroSlideshow() {
+      const [index, setIndex] = React.useState(0);
+
+      React.useEffect(() => {
+        const t = setInterval(() => {
+          setIndex(i => (i + 1) % HERO_IMAGES.length);
+        }, 5000);
+        return () => clearInterval(t);
+      }, []);
+
+      return (
+        <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:0 }}>
+          <AnimatePresence mode="sync">
+            <motion.img
+              key={index}
+              src={HERO_IMAGES[index]}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover', objectPosition: 'center',
+              }}
+            />
+          </AnimatePresence>
+        </div>
+      );
+    }
+
+    const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4';
+    const enter = (delay) => ({
+      initial:    { filter:'blur(10px)', opacity:0, y:20 },
+      animate:    { filter:'blur(0px)',  opacity:1, y:0  },
+      transition: { duration:0.7, ease:'easeOut', delay },
+    });
+    const IS  = { fontFamily:"'Instrument Serif', serif", fontStyle:'italic' };
+    const BAR = { fontFamily:"'Barlow', sans-serif" };
+
+    function Navbar() {
+      return (
+        <nav style={{ position:'fixed', top:'1rem', left:0, right:0, zIndex:50,
+                      display:'flex', alignItems:'center', justifyContent:'space-between',
+                      padding:'0 4rem', pointerEvents:'none' }}>
+          <div className="liquid-glass" style={{ width:48, height:48, borderRadius:'50%',
+               display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'auto' }}>
+            <span style={{ ...IS, color:'white', fontSize:'1.25rem', lineHeight:1 }}>a</span>
+          </div>
+          <div className="liquid-glass" style={{ display:'flex', alignItems:'center',
+               borderRadius:'9999px', padding:'0.375rem', gap:'0.125rem', pointerEvents:'auto' }}>
+            {['Home','Voyages','Worlds','Innovation','Plan Launch'].map(l => (
+              <a key={l} href="#"
+                 style={{ ...BAR, padding:'0.5rem 0.75rem', fontSize:'0.875rem',
+                          fontWeight:500, color:'rgba(255,255,255,0.9)',
+                          textDecoration:'none', whiteSpace:'nowrap' }}>{l}</a>
+            ))}
+            <button style={{ ...BAR, marginLeft:'0.25rem', background:'white', color:'black',
+                             fontSize:'0.875rem', fontWeight:500, padding:'0.5rem 1rem',
+                             borderRadius:'9999px', border:'none', cursor:'pointer',
+                             display:'flex', alignItems:'center', gap:'0.375rem', whiteSpace:'nowrap' }}>
+              Claim a Spot <ArrowUpRight size={14}/>
+            </button>
+          </div>
+          <div style={{ width:48, height:48, opacity:0 }}/>
+        </nav>
+      );
+    }
+
+    function HeroSection() {
+      return (
+        <section style={{ position:'relative', height:'100vh', overflow:'hidden', background:'#000' }}>
+          <HeroSlideshow/>
+
+          <div style={{ position:'relative', zIndex:10, display:'flex', flexDirection:'column', height:'100%' }}>
+            <Navbar/>
+
+            {/* Centred content */}
+            <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center',
+                          justifyContent:'center', paddingTop:'6rem', paddingLeft:'1rem',
+                          paddingRight:'1rem', textAlign:'center' }}>
+
+              {/* Badge */}
+              <motion.div {...enter(0.4)} className="liquid-glass"
+                style={{ display:'flex', alignItems:'center', gap:'0.5rem',
+                         borderRadius:'9999px', padding:'0.375rem', marginBottom:'1.5rem' }}>
+                <span style={{ ...BAR, background:'white', color:'black',
+                               fontSize:'0.75rem', fontWeight:600,
+                               padding:'0.25rem 0.75rem', borderRadius:'9999px' }}>New</span>
+                <span style={{ ...BAR, fontSize:'0.875rem', color:'rgba(255,255,255,0.9)',
+                               paddingRight:'0.75rem' }}>
+                  Maiden Crewed Voyage to Mars Arrives 2026
+                </span>
+              </motion.div>
+
+              {/* Headline */}
+              <BlurText text="Venture Past Our Sky Across the Universe"
+                style={{ ...IS, fontSize:'clamp(3rem,8vw,5.5rem)', color:'white',
+                         lineHeight:0.9, maxWidth:'42rem', letterSpacing:'-4px' }}/>
+
+              {/* Subheading */}
+              <motion.p {...enter(0.8)}
+                style={{ ...BAR, marginTop:'1rem', fontSize:'0.9rem',
+                         color:'white', maxWidth:'40rem', fontWeight:300,
+                         lineHeight:1.5 }}>
+                Discover the universe in ways once unimaginable. Our pioneering vessels and
+                breakthrough engineering bring deep-space exploration within reach—secure and extraordinary.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div {...enter(1.1)}
+                style={{ display:'flex', alignItems:'center', gap:'1.5rem', marginTop:'1.5rem' }}>
+                <button className="liquid-glass-strong"
+                  style={{ ...BAR, borderRadius:'9999px', padding:'0.625rem 1.25rem',
+                           fontSize:'0.875rem', fontWeight:500, color:'white',
+                           border:'none', cursor:'pointer',
+                           display:'flex', alignItems:'center', gap:'0.5rem' }}>
+                  Start Your Voyage <ArrowUpRight size={18}/>
+                </button>
+                <button style={{ ...BAR, display:'flex', alignItems:'center', gap:'0.5rem',
+                                 fontSize:'0.875rem', color:'white',
+                                 background:'none', border:'none', cursor:'pointer' }}>
+                  <PlayIcon/> View Liftoff
+                </button>
+              </motion.div>
+
+              {/* Stats */}
+              <motion.div {...enter(1.3)}
+                style={{ display:'flex', gap:'1rem', marginTop:'2rem' }}>
+                {[
+                  { icon:<ClockIcon/>, val:'34.5 Min', label:'Average Videos Watch Time' },
+                  { icon:<GlobeIcon/>, val:'2.8B+',    label:'Users Across the Globe' },
+                ].map(({ icon, val, label }) => (
+                  <div key={val} className="liquid-glass"
+                    style={{ padding:'1.25rem', borderRadius:'1.25rem', width:220,
+                             display:'flex', flexDirection:'column', gap:'0.75rem' }}>
+                    {icon}
+                    <div>
+                      <div style={{ ...IS, color:'white', fontSize:'2.25rem',
+                                    lineHeight:1, letterSpacing:'-1px' }}>{val}</div>
+                      <div style={{ ...BAR, fontSize:'0.75rem', color:'white',
+                                    fontWeight:300, marginTop:'0.5rem' }}>{label}</div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Partners */}
+            <motion.div {...enter(1.4)}
+              style={{ display:'flex', flexDirection:'column', alignItems:'center',
+                       gap:'1rem', paddingBottom:'2rem' }}>
+              <span className="liquid-glass"
+                style={{ ...BAR, borderRadius:'9999px', padding:'0.25rem 0.875rem',
+                         fontSize:'0.75rem', fontWeight:500, color:'white' }}>
+                Collaborating with top aerospace pioneers globally
+              </span>
+              <div style={{ display:'flex', alignItems:'center', gap:'3rem' }}>
+                {['Aeon','Vela','Apex','Orbit','Zeno'].map(n => (
+                  <span key={n} style={{ ...IS, color:'white',
+                                         fontSize:'clamp(1.25rem,3vw,1.875rem)',
+                                         letterSpacing:'-0.02em' }}>{n}</span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      );
+    }
+
+    // ─────────────────────────────────────────────
+    // CapabilitiesSection
+    // ─────────────────────────────────────────────
+    const CAP_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4';
+    const CARDS = [
+      {
+        title:'AI Scenery',
+        desc:'AI analyzes your product to create indistinguishable natural environments — from Icelandic cliffs to misty forests.',
+        tags:['Natural Context','Photo Realism','Infinite Settings','Eco-Vibe'],
+        icon:'M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z',
+      },
+      {
+        title:'Batch Production',
+        desc:'Style your entire product line in minutes. Create a unified visual identity for catalogues and social media without weeks of retouching.',
+        tags:['Scale Fast','Visual Consistency','Time Saver','Ready to Post'],
+        icon:'M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z',
+      },
+      {
+        title:'Smart Lighting',
+        desc:'Automatic lighting and material adjustment. Achieve flawless integration with realistic shadows and sunlight.',
+        tags:['Ray Tracing','Physical Shadows','Studio Quality','Sunlight Sync'],
+        icon:'M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z',
+      },
+    ];
+
+    function CapabilitiesSection() {
+      return (
+        <section style={{ position:'relative', minHeight:'100vh', overflow:'hidden', background:'#000' }}>
+          <FadingVideo src={CAP_VIDEO}
+            videoClassName="absolute inset-0 w-full h-full object-cover z-0"/>
+
+          <div style={{ position:'relative', zIndex:10, display:'flex', flexDirection:'column',
+                        minHeight:'100vh', padding:'6rem 5rem 2.5rem' }}>
+            <div style={{ marginBottom:'auto' }}>
+              <p style={{ ...BAR, fontSize:'0.875rem', color:'rgba(255,255,255,0.8)',
+                          marginBottom:'1.5rem' }}>// Capabilities</p>
+              <h2 style={{ ...IS, color:'white', fontSize:'clamp(3.5rem,8vw,6rem)',
+                           lineHeight:0.9, letterSpacing:'-3px' }}>
+                Production<br/>evolved
+              </h2>
+            </div>
+
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',
+                          gap:'1.5rem', marginTop:'4rem' }}>
+              {CARDS.map((card, i) => (
+                <div key={i} className="liquid-glass"
+                  style={{ borderRadius:'1.25rem', padding:'1.5rem', minHeight:360,
+                           display:'flex', flexDirection:'column' }}>
+                  <div style={{ display:'flex', alignItems:'flex-start',
+                                justifyContent:'space-between', gap:'1rem' }}>
+                    <div className="liquid-glass"
+                      style={{ width:44, height:44, borderRadius:'0.75rem', flexShrink:0,
+                               display:'flex', alignItems:'center', justifyContent:'center' }}>
+                      <svg viewBox="0 0 24 24" fill="currentColor"
+                           style={{ width:24, height:24, color:'white' }}>
+                        <path d={card.icon}/>
+                      </svg>
+                    </div>
+                    <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'flex-end',
+                                  gap:'0.375rem', maxWidth:'70%' }}>
+                      {card.tags.map(t => (
+                        <span key={t} className="liquid-glass"
+                          style={{ ...BAR, fontSize:11, color:'rgba(255,255,255,0.9)',
+                                   padding:'0.25rem 0.75rem', borderRadius:'9999px',
+                                   whiteSpace:'nowrap' }}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ flex:1 }}/>
+                  <div style={{ marginTop:'1.5rem' }}>
+                    <h3 style={{ ...IS, color:'white', fontSize:'clamp(1.75rem,3vw,2.25rem)',
+                                  lineHeight:1, letterSpacing:'-1px' }}>{card.title}</h3>
+                    <p style={{ ...BAR, fontSize:'0.875rem', color:'rgba(255,255,255,0.9)',
+                                fontWeight:300, lineHeight:1.45, maxWidth:'32ch',
+                                marginTop:'0.75rem' }}>{card.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // ─────────────────────────────────────────────
+    // Mount
+    // ─────────────────────────────────────────────
+    function CinematicApp() {
+      return (
+        <>
+          <HeroSection/>
+          <CapabilitiesSection/>
+        </>
+      );
+    }
+
+    const _root = document.getElementById('cinematic-root');
+    if (_root) ReactDOM.createRoot(_root).render(<CinematicApp/>);
+  </script>
+
+  <script>
+    /* ── Scroll Film Strip — canvas frame sequence (181 imágenes) ── */
+    (function () {
+      var TOTAL = 181;
+      function frameSrc(n) {
+        return 'assets/frames/ezgif-frame-' + String(n).padStart(3, '0') + '.jpg';
+      }
+
+      var canvas   = document.getElementById('scroll-film-canvas');
+      var cont     = document.getElementById('scroll-film-container');
+      var blocks   = document.querySelectorAll('.sfc-text-block');
+      var bar      = document.getElementById('sfc-progress-fill');
+      var hint     = document.getElementById('sfc-scroll-hint');
+      var nav      = document.querySelector('nav');
+      var loading  = document.getElementById('sfc-loading');
+      var loadPct  = document.getElementById('sfc-loading-pct');
+      var loadFill = document.getElementById('sfc-loading-fill');
+
+      var frames       = new Array(TOTAL).fill(null);
+      var loadedCount  = 0;
+      var currentFrame = TOTAL - 1;
+      var pendingFrame = TOTAL - 1;
+      var rafPending   = false;
+      var ready        = false;
+
+      function resizeCanvas() {
+        var sticky = document.getElementById('scroll-film-sticky');
+        canvas.width  = sticky.offsetWidth;
+        canvas.height = sticky.offsetHeight;
+        if (ready) drawFrame(currentFrame);
+      }
+
+      function drawFrame(index) {
+        var ctx = canvas.getContext('2d');
+        var img = frames[index];
+        if (!ctx || !img) return;
+        currentFrame = index;
+        var cw = canvas.width, ch = canvas.height;
+        var iw = img.naturalWidth,  ih = img.naturalHeight;
+        var scale = Math.max(cw / iw, ch / ih);
+        var sw = iw * scale, sh = ih * scale;
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(img, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
+      }
+
+      function applyFrame() {
+        rafPending = false;
+        drawFrame(pendingFrame);
+      }
+
+      function getProgress() {
+        var total = cont.offsetHeight - window.innerHeight;
+        if (total <= 0) return 0;
+        return Math.max(0, Math.min(1, (window.scrollY - cont.offsetTop) / total));
+      }
+
+      function onScroll() {
+        var p = getProgress();
+        var fi = (TOTAL - 1) - Math.min(TOTAL - 1, Math.floor(p * TOTAL));
+
+        if (fi !== currentFrame && !rafPending) {
+          pendingFrame = fi;
+          rafPending   = true;
+          requestAnimationFrame(applyFrame);
+        }
+
+        var inside = window.scrollY >= cont.offsetTop &&
+                     window.scrollY <  cont.offsetTop + cont.offsetHeight;
+        if (nav) nav.classList.toggle('nav-hidden', inside);
+
+        bar.style.width = (p * 100) + '%';
+        hint.classList.toggle('sfc-hidden', p > 0.04);
+        blocks.forEach(function (b) {
+          b.classList.toggle('sfc-visible',
+            p >= parseFloat(b.dataset.start) && p <= parseFloat(b.dataset.end));
+        });
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      for (var i = 0; i < TOTAL; i++) {
+        (function (idx) {
+          var img = new Image();
+          img.onload = function () {
+            frames[idx] = img;
+            loadedCount++;
+            var pct = Math.round(loadedCount / TOTAL * 100);
+            loadPct.textContent  = 'Cargando ' + pct + '%';
+            loadFill.style.width = pct + '%';
+            if (loadedCount === TOTAL) {
+              ready = true;
+              loading.classList.add('sfc-loaded');
+              drawFrame(TOTAL - 1);
+              onScroll();
+            }
+          };
+          img.src = frameSrc(idx + 1);
+        })(i);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>

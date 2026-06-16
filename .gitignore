@@ -1,0 +1,11 @@
+# Fotos originales sin optimizar — no se usan en la web publicada (264 MB)
+fotos-originales/
+
+# Basura del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel / dependencias / temporales
+.vercel/
+node_modules/
