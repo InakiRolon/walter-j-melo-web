@@ -1,0 +1,36 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Dónde se guardan las imágenes que suba Walter
+media_folder: "assets/piezas"
+public_folder: "/assets/piezas"
+
+locale: "es"
+
+site_url: https://walter-j-melo.netlify.app
+display_url: https://walter-j-melo.netlify.app
+
+collections:
+  - name: "galeria"
+    label: "Galería"
+    files:
+      - name: "piezas"
+        label: "Piezas de la colección"
+        file: "piezas.json"
+        description: "Las piezas que aparecen en la galería (las que tienen el botón «Consultar»). Podés agregar, sacar, reordenar y cambiarles la foto."
+        fields:
+          - name: "piezas"
+            label: "Piezas"
+            label_singular: "Pieza"
+            widget: "list"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { name: "titulo", label: "Nombre", widget: "string" }
+              - { name: "imagen", label: "Foto", widget: "image", choose_url: false }
+              - { name: "obra", label: "Tipo (ej: Colgante, Anillo, Broche)", widget: "string", required: false }
+              - { name: "medidas", label: "Medidas (ej: 70 × 45 mm)", widget: "string", required: false }
+              - { name: "material", label: "Materiales (separados por coma)", widget: "string", required: false }
+              - { name: "terminacion", label: "Terminación", widget: "string", required: false }
+              - { name: "soporte", label: "Soporte (cadena, hilo…)", widget: "string", required: false }
+              - { name: "memoria", label: "Descripción", widget: "text", required: false }
