@@ -1086,6 +1086,7 @@
     .detail-spec-value { color: #333; }
 
     .detail-memoria {
+      white-space: pre-line;
       font-size: 0.9rem;
       color: #555;
       line-height: 1.9;
@@ -1654,7 +1655,7 @@
       <div class="gal-brand">Walter J. Melo — Colección Rostros</div>
       <div id="galStage"></div>
       <div class="gal-bottom-left">
-        <div class="gal-heading" id="galHeading">Expectativa</div>
+        <div class="gal-heading" id="galHeading">Fortín</div>
         <div class="gal-desc" id="galDesc">Joyas que nacen de la materia y el concepto. Cada pieza, una historia en metal.</div>
         <div class="gal-arrows">
           <button class="gal-arrow" id="galPrev" aria-label="Anterior">&#8592;</button>
@@ -1905,101 +1906,100 @@
     // ── STORE DATA ──
     const PIEZAS = [
       {
-        n:1, titulo:'Expectativa', obra:'Colgante', medidas:'78mm × 47mm',
-        material:['Bronce','Ébano tallado a mano'],
-        terminacion:'Pulido espejo y arenado cubierto con baño de oro',
-        soporte:'Cadena de bronce bañada en oro',
-        memoria:'La inspiración para esta pieza nace con un recorte en madera de ébano que descartó un lutier, en la cual vi un rostro al que luego daría forma. Con gestos desanimados, los límites de su cara fueron marcados por formas extraídas para dar vida a otros objetos que él siente como valiosos; por eso las líneas doradas y la esfera en la base simbolizan el mundo ideal lleno de brillo al que aspira llegar, sin entender que en sí mismo es una madera preciosa. Esto nos lleva a una reflexión: muchas veces el descontento y las expectativas que nos imponen no nos permiten ver lo que realmente valemos.'
-      },
-      {
-        n:2, titulo:'Remembranza', obra:'Pinche de solapa', medidas:'150mm × 37mm',
-        material:['Plata','Ébano','Circones'],
+        n:1, titulo:"Fortín", obra:"Pulsera tipo esclava", medidas:"65mm × 38mm",
+        material:["Bronce","astillas de bronce","electroformada","baño de oro patinado"],
         terminacion:null, soporte:null,
-        memoria:'La imagen está compuesta por un rostro completo en el extremo izquierdo que, a medida que avanzamos hacia la derecha, se va distorsionando o deformando, reflejando cómo el tiempo y las experiencias cambian nuestra apariencia y quizás nuestra identidad. Las volutas de metal que acompañan la escena, terminando en tres circones, representan elementos de fragilidad, movimiento o la naturaleza efímera de la memoria. En conjunto, la obra transmite la idea de que la remembranza no es estática, sino un proceso dinámico de cambio y evolución.'
+        memoria:"Un legado de manos unidas.\nEsta pieza nace de la entrañable memoria de una infancia donde la imaginación y la complicidad dieron forma a un castillo construido con la humilde madera de cajones de frutas. Aquel fuerte, cimentado en el afecto y la colaboración de mi padrino, se erige ahora como la inspiración de esta obra.\nEn ella, la robustez del roble, árbol de lento crecimiento y profunda fortaleza, se manifiesta en cada trazo. El dorado irradia la valiosa enseñanza que germina del esfuerzo conjunto y la chispa de la creatividad, la perseverancia necesaria para alcanzar los anhelos.\nSin embargo, la pieza también abraza las sombras, esos momentos oscuros de desencuentro y las transformaciones ineludibles que la vida nos presenta. Pero, al igual que las maderas entrelazadas de aquel primer fuerte, la obra evoca la importancia de permanecer firmes y unidos, resistiendo las pruebas con la solidez de un vínculo perdurable. \"Fortaleza de Recuerdos\" es un tributo a la resiliencia del espíritu y al poder imborrable de las conexiones que nos sostienen."
       },
       {
-        n:3, titulo:'Trabajador', obra:'Colgante', medidas:'82mm × 37mm',
-        material:['Bronce pulido espejo bañado en oro','Madera de ébano tallada'],
-        terminacion:null, soporte:'Hilo de caucho negro',
-        memoria:'El concepto de la obra representa el rostro de un ser apacible con fracciones fuertes: una persona que puede parecer tranquila pero con aspectos internos sólidos y resistentes. La "frente plana" simboliza estabilidad. La línea de caños que la rodea representa la estructura que protege al trabajador; los caños dorados simbolizan el bienestar económico y la recompensa que la empresa entrega, aunque a la vez requieren de un gran costo personal. Utilizo metáforas visuales para reflexionar sobre la relación entre el trabajador y su entorno laboral, destacando la estabilidad, el beneficio y los sacrificios involucrados.'
+        n:2, titulo:"Descanso", obra:"Colgante", medidas:"70mmx 26mm",
+        material:["Hoja esqueletizada electro formada bañada en oro"],
+        terminacion:null, soporte:"hilo de acero",
+        memoria:"\"Descanso\" se sumerge en la quietud que marca el final de un ciclo, la aceptación serena de lo ineludible. Una hoja, delicadamente esqueletizada por el tiempo y los elementos, se curva sobre sí misma en una postura fetal, evocando la forma incipiente de una crisálida.\nEn este gesto de recogimiento, la hoja se abandona a la espera apacible de su destino, imitando la transformación silenciosa que precede al vuelo de una mariposa. No hay resistencia, solo una entrega plena al devenir natural.\n\"Descanso\" es una meditación sobre la belleza de la conclusión, la paz que reside en la aceptación del flujo incesante de la vida. Es un instante de quietud profunda, un símbolo de la metamorfosis inevitable y la serenidad que se encuentra en el umbral de una nueva etapa, aguardando su propia forma de renacer."
       },
       {
-        n:4, titulo:'Línea Expresiones', obra:'Broche', medidas:'130mm × 28mm',
-        material:['Bronce','Resina'],
-        terminacion:'Patinado y pulido parcial', soporte:null,
-        memoria:'Historia palpable en metal. El tiempo va cincelando las sombras del enojo hasta dejar solo la nariz, una boca silente y cuencas vacías.'
+        n:3, titulo:"Trabajador", obra:"Colgante", medidas:"78mmx47mm",
+        material:["Bronce","ébano tallado a mano"],
+        terminacion:"pulido espejo y arenado cubierto con baño de oro", soporte:"cadena de bronce bañada en oro",
+        memoria:"La inspiración para esta pieza nace con un recorte en madera de ébano, que descarto un lutier y en la cual vi un rostro, al que luego daría forma.\nCon gestos desanimados los límites de su cara fueron marcados por formas que fueron extraídas para dar vida a otros objetos que el siente como valiosos por eso las líneas doradas y la esfera en la base simboliza el mundo ideal lleno de brillo al que aspira llegar sin entender que en mismo es una madera preciosa\nEsto nos lleva a una reflexión en la que muchas veces el descontento y las expectativas que nos imponen no nos permite ver lo que realmente valemos."
       },
       {
-        n:5, titulo:'Señores de la Naturaleza', obra:'Colgante', medidas:'65mm × 52mm',
-        material:['Corteza de árbol','Bronce'],
-        terminacion:'Baño de oro', soporte:'Cadena de acero inoxidable',
-        memoria:'Cortezas olvidadas tras las podas cobran nueva voz. Cada fragmento guarda el espíritu del árbol y su sabiduría acumulada en silencio.'
+        n:4, titulo:"Remembranza", obra:"Pinche de solapa", medidas:"150mm por 37mm",
+        material:["Plata","Ébano","circones"],
+        terminacion:null, soporte:null,
+        memoria:"La descripción sugiere una obra visual que simboliza el paso del tiempo y la transformación personal. La imagen está compuesta por un rostro completo en el extremo izquierdo, que, a medida que avanzamos hacia la derecha, se va distorsionando o deformando, reflejando cómo el tiempo y las experiencias cambian nuestra apariencia y quizás nuestra identidad.\nLas volutas de metal que acompañan la escena, terminando en tres circones, podrían representar elementos de fragilidad, movimiento o la naturaleza efímera de la memoria y el paso del tiempo. En conjunto, la obra transmite la idea de que la remembranza no es estática, sino un proceso dinámico de cambio y evolución."
       },
       {
-        n:6, titulo:'Alivio', obra:'Colgante', medidas:'55mm × 40mm',
-        material:['Plata 925','Circonitas'],
-        terminacion:'Pulido espejo', soporte:'Cadena de plata',
-        memoria:'Doce circonitas evocan las gotas que acarician la tierra, una por cada mes del año, representando el ciclo eterno de las estaciones.'
+        n:5, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
       },
       {
-        n:7, titulo:'Fortín', obra:'Colgante', medidas:'70mm × 60mm',
-        material:['Madera','Bronce'],
-        terminacion:'Natural y oxidado', soporte:'Hilo de cuero',
-        memoria:'Nace de la memoria de una infancia donde la imaginación y la complicidad dieron forma a un castillo construido con humilde madera.'
+        n:6, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
       },
       {
-        n:8, titulo:'Descanso', obra:'Broche', medidas:'90mm × 35mm',
-        material:['Hoja esqueletizada','Bronce'],
-        terminacion:'Baño de oro sobre bronce', soporte:null,
-        memoria:'Una hoja esqueletizada se curva en postura fetal, imitando la transformación silenciosa que precede al vuelo de una mariposa.'
+        n:7, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
       },
       {
-        n:9, titulo:'Línea Apariencias', obra:'Colgante', medidas:'60mm × 45mm',
-        material:['Polenta solidificada','Sal','Papel','Bronce bañado en oro'],
-        terminacion:'Dorado', soporte:'Cadena de bronce dorada',
-        memoria:'Polenta, sal y papel se visten de oro. Un recordatorio de que la apariencia puede deslumbrar, pero la verdadera identidad reside dentro.'
+        n:8, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
       },
       {
-        n:10, titulo:'Caos', obra:'Colgante', medidas:'80mm × 55mm',
-        material:['Restos de impresión 3D','Bronce'],
-        terminacion:'Oxidado y pulido', soporte:'Cadena de acero',
-        memoria:'De los desechos de una impresión 3D fallida surge la pieza. En el enredo de intentos fallidos emerge la pulsión de recomenzar.'
+        n:9, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
       },
       {
-        n:11, titulo:'Láquesis', obra:'Colgante', medidas:'120mm × 20mm',
-        material:['Sisal','Vidrio soplado','Bronce'],
-        terminacion:'Natural', soporte:null,
-        memoria:'Inspirada en la Moira que mide el hilo de la vida. Una solitaria gota de vidrio azul tensa el sisal hasta el punto del quiebre final.'
+        n:10, titulo:"Señores de la naturaleza", obra:"línea de broches y colgantes", medidas:"Diversas, desde 150 mm x 30mm a 30mm x 20mm",
+        material:["cortezas de diferentes arboles cubiertas en cobre y diversas terminaciones"],
+        terminacion:null, soporte:"cadenas caucho negro y acero",
+        memoria:"\"Los señores de la naturaleza\" nacieron de una profunda conexión con el ciclo de la vida que observo en los árboles. Al encontrar esas astillas de cortezas olvidadas tras las podas –roble con su fortaleza palpable, paraíso con su ligereza etérea, cedro con su aroma ancestral– sentí la necesidad de darles una nueva voz. En cada fragmento, me propuse tallar un rostro, pero no uno cualquiera, sino una representación del espíritu que habita en su interior. Para mí, era crucial mantener intacta una parte de su corteza original, como un testimonio imborrable de su origen, de su historia enraizada en la tierra.\nLos rostros que emergen de mi talla son serenos, ensimismados en una contemplación silenciosa. Busco plasmar esa quietud profunda que percibo en los árboles centenarios, esa sabiduría acumulada a través de los años, siendo testigos mudos del devenir del tiempo. Mi intención es evocar su alma, esas incontables historias que presenciaron sin emitir palabra.\nEsta visión se nutre de la antigua sabiduría de los druidas, quienes concebían al árbol como un ser vivo con un espíritu propio. Para ellos, la fortaleza de un árbol emanaba de su alma, y su grandeza residía en su capacidad para abrazar su destino con una calma inquebrantable. Al crear estas joyas, aspiro a transmitir esa misma estoica tranquilidad, esa profunda aceptación que encuentro en la esencia misma de estos \"señores de la naturaleza\". Cada pieza es un intento de hacer tangible esa conexión invisible, de llevar con nosotros un fragmento de ese espíritu ancestral."
       },
       {
-        n:12, titulo:'Infancia 1', obra:'Broche', medidas:'75mm × 55mm',
-        material:['Arpillera','Bronce'],
-        terminacion:'Oxidado', soporte:null,
-        memoria:'Un fragmento de arpillera que para mis ojos infantiles se metamorfoseaba en mundos infinitos, naves espaciales y castillos imaginarios.'
+        n:11, titulo:"Señores de la naturaleza", obra:"línea de broches y colgantes", medidas:"Diversas, desde 150 mm x 30mm a 30mm x 20mm",
+        material:["cortezas de diferentes arboles cubiertas en cobre y diversas terminaciones"],
+        terminacion:null, soporte:"cadenas caucho negro y acero",
+        memoria:"\"Los señores de la naturaleza\" nacieron de una profunda conexión con el ciclo de la vida que observo en los árboles. Al encontrar esas astillas de cortezas olvidadas tras las podas –roble con su fortaleza palpable, paraíso con su ligereza etérea, cedro con su aroma ancestral– sentí la necesidad de darles una nueva voz. En cada fragmento, me propuse tallar un rostro, pero no uno cualquiera, sino una representación del espíritu que habita en su interior. Para mí, era crucial mantener intacta una parte de su corteza original, como un testimonio imborrable de su origen, de su historia enraizada en la tierra.\nLos rostros que emergen de mi talla son serenos, ensimismados en una contemplación silenciosa. Busco plasmar esa quietud profunda que percibo en los árboles centenarios, esa sabiduría acumulada a través de los años, siendo testigos mudos del devenir del tiempo. Mi intención es evocar su alma, esas incontables historias que presenciaron sin emitir palabra.\nEsta visión se nutre de la antigua sabiduría de los druidas, quienes concebían al árbol como un ser vivo con un espíritu propio. Para ellos, la fortaleza de un árbol emanaba de su alma, y su grandeza residía en su capacidad para abrazar su destino con una calma inquebrantable. Al crear estas joyas, aspiro a transmitir esa misma estoica tranquilidad, esa profunda aceptación que encuentro en la esencia misma de estos \"señores de la naturaleza\". Cada pieza es un intento de hacer tangible esa conexión invisible, de llevar con nosotros un fragmento de ese espíritu ancestral."
       },
       {
-        n:13, titulo:'Susurros de la Tierra', obra:'Colgante', medidas:'68mm × 48mm',
-        material:['Hojas naturales','Semillas','Bronce'],
-        terminacion:'Baño de cobre', soporte:'Cadena de bronce',
-        memoria:'Hojas caídas y semillas dispersas transformadas en arte. La naturaleza como inteligencia ancestral que fluye, se adapta y renace.'
+        n:12, titulo:"Señores de la naturaleza", obra:"línea de broches y colgantes", medidas:"Diversas, desde 150 mm x 30mm a 30mm x 20mm",
+        material:["cortezas de diferentes arboles cubiertas en cobre y diversas terminaciones"],
+        terminacion:null, soporte:"cadenas caucho negro y acero",
+        memoria:"\"Los señores de la naturaleza\" nacieron de una profunda conexión con el ciclo de la vida que observo en los árboles. Al encontrar esas astillas de cortezas olvidadas tras las podas –roble con su fortaleza palpable, paraíso con su ligereza etérea, cedro con su aroma ancestral– sentí la necesidad de darles una nueva voz. En cada fragmento, me propuse tallar un rostro, pero no uno cualquiera, sino una representación del espíritu que habita en su interior. Para mí, era crucial mantener intacta una parte de su corteza original, como un testimonio imborrable de su origen, de su historia enraizada en la tierra.\nLos rostros que emergen de mi talla son serenos, ensimismados en una contemplación silenciosa. Busco plasmar esa quietud profunda que percibo en los árboles centenarios, esa sabiduría acumulada a través de los años, siendo testigos mudos del devenir del tiempo. Mi intención es evocar su alma, esas incontables historias que presenciaron sin emitir palabra.\nEsta visión se nutre de la antigua sabiduría de los druidas, quienes concebían al árbol como un ser vivo con un espíritu propio. Para ellos, la fortaleza de un árbol emanaba de su alma, y su grandeza residía en su capacidad para abrazar su destino con una calma inquebrantable. Al crear estas joyas, aspiro a transmitir esa misma estoica tranquilidad, esa profunda aceptación que encuentro en la esencia misma de estos \"señores de la naturaleza\". Cada pieza es un intento de hacer tangible esa conexión invisible, de llevar con nosotros un fragmento de ese espíritu ancestral."
       },
       {
-        n:14, titulo:'Gírgola', obra:'Colgante', medidas:'85mm × 40mm',
-        material:['Bronce'],
-        terminacion:'Pulido espejo y mate combinados', soporte:'Cadena de bronce',
-        memoria:'La danza de las gírgolas al ascender desde la madera inspiró esta espiral que nos conecta con la divina proporción áurea.'
+        n:13, titulo:"Señores de la naturaleza", obra:"línea de broches y colgantes", medidas:"Diversas, desde 150 mm x 30mm a 30mm x 20mm",
+        material:["cortezas de diferentes arboles cubiertas en cobre y diversas terminaciones"],
+        terminacion:null, soporte:"cadenas caucho negro y acero",
+        memoria:"\"Los señores de la naturaleza\" nacieron de una profunda conexión con el ciclo de la vida que observo en los árboles. Al encontrar esas astillas de cortezas olvidadas tras las podas –roble con su fortaleza palpable, paraíso con su ligereza etérea, cedro con su aroma ancestral– sentí la necesidad de darles una nueva voz. En cada fragmento, me propuse tallar un rostro, pero no uno cualquiera, sino una representación del espíritu que habita en su interior. Para mí, era crucial mantener intacta una parte de su corteza original, como un testimonio imborrable de su origen, de su historia enraizada en la tierra.\nLos rostros que emergen de mi talla son serenos, ensimismados en una contemplación silenciosa. Busco plasmar esa quietud profunda que percibo en los árboles centenarios, esa sabiduría acumulada a través de los años, siendo testigos mudos del devenir del tiempo. Mi intención es evocar su alma, esas incontables historias que presenciaron sin emitir palabra.\nEsta visión se nutre de la antigua sabiduría de los druidas, quienes concebían al árbol como un ser vivo con un espíritu propio. Para ellos, la fortaleza de un árbol emanaba de su alma, y su grandeza residía en su capacidad para abrazar su destino con una calma inquebrantable. Al crear estas joyas, aspiro a transmitir esa misma estoica tranquilidad, esa profunda aceptación que encuentro en la esencia misma de estos \"señores de la naturaleza\". Cada pieza es un intento de hacer tangible esa conexión invisible, de llevar con nosotros un fragmento de ese espíritu ancestral."
       },
       {
-        n:15, titulo:'Ocre', obra:'Broche', medidas:'80mm × 60mm',
-        material:['Hoja esqueletizada','Bronce'],
-        terminacion:'Patinado ocre', soporte:null,
-        memoria:'Una hoja esqueletizada se despoja al compás del viento. La belleza melancólica del otoño capturada en su danza efímera.'
+        n:14, titulo:"Alivio", obra:"Colgante", medidas:"160mm x 30mm",
+        material:["corteza de nogal electro formado circones"],
+        terminacion:null, soporte:"caucho negro",
+        memoria:"Un suspiro de la tierra.\nInspirado en la serenidad que la naturaleza nos regala con la lluvia suave o el delicado rocío matutino, \"Alivio\" captura esa sensación de frescura revitalizante. Doce circonitas, cada una con una dimensión sutilmente diferente, evocan las gotas que acarician la tierra, una por cada mes del año, representando el ciclo eterno de las estaciones.\nLa pieza se presenta como un fragmento de árbol, testigo silencioso del fluir del tiempo, sobre el cual estas gemas líquidas parecen deslizarse. Es la representación tangible de la humedad que nutre, que aquieta la sed del suelo y que nos recuerda la calma esencial que emana del mundo natural. \"Alivio\" es un instante de frescura palpable, una conexión íntima con la vitalidad que nos rodea."
       },
       {
-        n:16, titulo:'Nido', obra:'Colgante', medidas:'70mm × 70mm',
-        material:['Bronce','Hilo de plata'],
-        terminacion:'Oxidado y pulido', soporte:'Cadena de bronce',
-        memoria:'Inspirado en los nidos de aves, esos santuarios tejidos con esmero donde la familia se une y los lazos se vuelven eternos.'
+        n:15, titulo:"Línea Expresiones", obra:"Prendedor compuesto por varios modelos con diversas terminaciones", medidas:"35mm x 26mm Aprox.",
+        material:["modelado en cera cobre electro formado con diferentes terminaciones"],
+        terminacion:null, soporte:null,
+        memoria:"\"Expresiones\" es una historia palpable en metal, un viaje visual que comienza con la serenidad de un rostro apacible. Pero el tiempo, cual escultor sombrío, comienza a cincelar en él las sombras del enojo y el malestar creciente. Esta metamorfosis, donde los rasgos se desdibujan gradualmente hasta quedar solo la nariz, una boca silente y las cuencas vacías de los ojos, es una poderosa alegoría. Nos habla de cómo la impaciencia y el odio carcomen no solo nuestra apariencia, sino también nuestra capacidad de conectar. Los rostros de \"Expresiones\" nos recuerdan, en su progresivo despojo, cómo la hostilidad nos arrebata la facultad de ver la belleza que nos rodea, de comunicar con autenticidad nuestras luces y sombras, hasta dejarnos varados en el silencio desolado de la soledad. Cada broche es un instante capturado de esta dolorosa pérdida, invitándonos a una profunda reflexión sobre el precio de las emociones oscuras."
+      },
+      {
+        n:16, titulo:"Nido", obra:"Colgante", medidas:"55mm × 45mm",
+        material:["Hilos de bronce","vidrio color agua marina"],
+        terminacion:null, soporte:"Cadena de bronce dorada",
+        memoria:"Un abrazo tejido de vida.\nEsta pieza encuentra su musa en la humilde maravilla de los nidos de aves, esos santuarios tejidos con esmero, refugios donde la familia se une bajo el cielo. Cada delicada rama, estilizada en formas únicas, cuenta una historia. Algunas son rústicas y fuertes, otras finas y flexibles, sus texturas evocan las diversas etapas y desafíos que la vida entrelaza.\nEn el corazón de este abrazo de ramitas, una gema cristalina de corte cuadrangular irradia la suave serenidad del agua marina. Su color evoca la calma profunda, la sensación de amparo y seguridad que un nido ofrece.\n\"Nido\" es una oda a la unión y la protección, un símbolo de ese espacio vital donde se forjan los lazos más preciados. Es la representación tangible de la delicadeza y la fortaleza entrelazadas, un recordatorio de la paz que se encuentra en el refugio del hogar, bañado por la tranquilidad de un mar eterno."
       }
     ];
 
