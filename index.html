@@ -615,6 +615,59 @@
     /* ── GALERÍA CAROUSEL ── */
     #galeria { padding: 0; overflow: hidden; }
 
+    /* ── Carrusel de 2 filas (marquee) ── */
+    .marquee {
+      position: relative;
+      background: #15223f;
+      padding: 3.5rem 0;
+      overflow: hidden;
+    }
+    .marquee-brand {
+      position: absolute; top: 1.4rem; left: 1.2rem; z-index: 5;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.65rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    @media (min-width: 640px) { .marquee-brand { left: 2rem; top: 1.8rem; } }
+    .marquee-rows {
+      display: flex; flex-direction: column; gap: 14px;
+      margin-top: 2rem;
+    }
+    .marquee-row { overflow: hidden; }
+    .marquee-track {
+      display: flex; width: max-content;
+      will-change: transform;
+    }
+    /* !important: el carrusel se mueve siempre, incluso con "reducir movimiento" del sistema */
+    .marquee-track--a { animation: marqueeLeft 70s linear infinite !important; }
+    .marquee-track--b { animation: marqueeRight 86s linear infinite !important; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-card {
+      flex: 0 0 auto;
+      width: 220px; height: 275px;
+      margin-right: 14px;
+      border-radius: 4px; overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .marquee-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .marquee-card:hover img { transform: scale(1.06); }
+    @keyframes marqueeLeft {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+    @media (max-width: 640px) {
+      .marquee-card { width: 150px; height: 188px; }
+    }
+
     #galCarousel {
       position: relative; width: 100%; height: 100vh;
       overflow: hidden;
@@ -1676,20 +1729,12 @@
 
   <!-- GALERÍA -->
   <section id="galeria">
-    <div id="galCarousel">
-      <div class="gal-grain"></div>
-      <div class="gal-ghost" id="galGhost">ROSTROS</div>
-      <div class="gal-brand">Walter J. Melo — Colección Rostros</div>
-      <div id="galStage"></div>
-      <div class="gal-bottom-left">
-        <div class="gal-heading" id="galHeading">Fortín</div>
-        <div class="gal-desc" id="galDesc">Joyas que nacen de la materia y el concepto. Cada pieza, una historia en metal.</div>
-        <div class="gal-arrows">
-          <button class="gal-arrow" id="galPrev" aria-label="Anterior">&#8592;</button>
-          <button class="gal-arrow" id="galNext" aria-label="Siguiente">&#8594;</button>
-        </div>
+    <div class="marquee">
+      <div class="marquee-brand">Walter J. Melo — Colección Rostros</div>
+      <div class="marquee-rows">
+        <div class="marquee-row"><div class="marquee-track marquee-track--a"></div></div>
+        <div class="marquee-row"><div class="marquee-track marquee-track--b"></div></div>
       </div>
-      <a href="#tienda" class="gal-discover">Descubrir &#8594;</a>
     </div>
   </section>
 
@@ -2145,10 +2190,33 @@
       }
     });
 
+    // ── MARQUEE GALERÍA (2 filas que se mueven solas) ──
+    (function buildMarquee() {
+      var TOTAL = 31;
+      var imgs = [];
+      for (var i = 1; i <= TOTAL; i++) {
+        imgs.push('assets/carrusel/c' + String(i).padStart(2, '0') + '.jpg');
+      }
+      var rowA = imgs.filter(function (_, i) { return i % 2 === 0; });
+      var rowB = imgs.filter(function (_, i) { return i % 2 === 1; });
+      function fill(sel, list) {
+        var track = document.querySelector(sel);
+        if (!track) return;
+        var html = '';
+        list.concat(list).forEach(function (src) {
+          html += '<div class="marquee-card"><img src="' + src + '" alt="Pieza — Colección Rostros"></div>';
+        });
+        track.innerHTML = html;
+      }
+      fill('.marquee-track--a', rowA);
+      fill('.marquee-track--b', rowB);
+    })();
+
     // ── CAROUSEL ──
     (function initCarousel() {
       var carousel = document.getElementById('galCarousel');
       var stage    = document.getElementById('galStage');
+      if (!stage) return;  // sección del carrusel vaciada — no inicializar
       var heading  = document.getElementById('galHeading');
       var ghost    = document.getElementById('galGhost');
       var current  = 0;
