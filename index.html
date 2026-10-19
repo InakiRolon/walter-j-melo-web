@@ -1881,9 +1881,12 @@
     /* PNG → JPG universal fallback: intenta .png primero, cae a .jpg si no existe */
     document.addEventListener('error', function (e) {
       var el = e.target;
-      if (el.tagName === 'IMG' && el.src.endsWith('.png') && !el.dataset.triedFallback) {
+      if (el.tagName !== 'IMG') return;
+      if (el.src.endsWith('.png') && !el.dataset.triedFallback) {
         el.dataset.triedFallback = '1';
         el.src = el.src.replace('.png', '.jpg');
+      } else if (el.classList.contains('detail-thumb')) {
+        el.style.display = 'none';
       }
     }, true);
 
@@ -2052,6 +2055,7 @@
       // Images — main + extra shots
       var mainImg = document.getElementById('detailMainImg');
       var base = 'assets/gallery_' + p.n + '.png';
+      delete mainImg.dataset.triedFallback;
       mainImg.src = base;
       mainImg.alt = p.titulo;
 
@@ -2069,8 +2073,8 @@
         t.className = 'detail-thumb' + (i === 0 ? ' active' : '');
         t.alt = p.titulo + ' vista ' + (i + 1);
         t.src = src;
-        t.onerror = function() { this.style.display = 'none'; };
         t.addEventListener('click', function() {
+          delete mainImg.dataset.triedFallback;
           mainImg.src = src;
           thumbsEl.querySelectorAll('.detail-thumb').forEach(function(el) { el.classList.remove('active'); });
           t.classList.add('active');
