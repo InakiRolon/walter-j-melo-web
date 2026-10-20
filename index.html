@@ -2293,21 +2293,73 @@
     })();
 
     // ── CONTACT FORM ──
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var nombre = document.getElementById('cf-name').value;
-      var email = document.getElementById('cf-email').value;
-      var modalidad = document.getElementById('cf-modalidad').value;
-      var mensaje = document.getElementById('cf-msg').value;
-      var subject = encodeURIComponent('Contacto web — ' + modalidad);
-      var body = encodeURIComponent(
-        'Nombre: ' + nombre + '\n' +
-        'Email: ' + email + '\n' +
-        'Modalidad: ' + modalidad + '\n\n' +
-        mensaje
-      );
-      window.location.href = 'mailto:walterjmelo@gmail.com?subject=' + subject + '&body=' + body;
-    });
+    (function initContactForm() {
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      var WEB3FORMS_KEY = '28cdfc46-9aec-4f32-b6b7-35fa28835ad8';
+
+      function setStatus(kind, msg) {
+        var el = document.getElementById('cf-status');
+        if (!el) {
+          el = document.createElement('p');
+          el.id = 'cf-status';
+          el.style.margin = '0.4rem 0 0';
+          el.style.fontFamily = "'Helvetica Neue', Arial, sans-serif";
+          el.style.fontSize = '0.82rem';
+          el.style.lineHeight = '1.5';
+          form.appendChild(el);
+        }
+        el.textContent = msg;
+        el.style.color = kind === 'ok' ? '#2e7d32' : (kind === 'err' ? '#c0392b' : 'inherit');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('.form-submit');
+        var nombre = document.getElementById('cf-name').value.trim();
+        var email = document.getElementById('cf-email').value.trim();
+        var modalidad = document.getElementById('cf-modalidad').value;
+        var mensaje = document.getElementById('cf-msg').value.trim();
+
+        var btnText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+        setStatus('', '');
+
+        var payload = {
+          access_key: WEB3FORMS_KEY,
+          subject: 'Contacto web — ' + modalidad,
+          from_name: 'Web Walter J. Melo',
+          name: nombre,
+          email: email,
+          replyto: email,
+          'Tipo de consulta': modalidad,
+          message: mensaje
+        };
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.success) {
+              form.reset();
+              setStatus('ok', '✓ ¡Mensaje enviado! Walter te responde a la brevedad.');
+            } else {
+              setStatus('err', '✗ No se pudo enviar. Probá de nuevo o escribinos por WhatsApp.');
+            }
+          })
+          .catch(function () {
+            setStatus('err', '✗ No se pudo enviar. Revisá tu conexión o escribinos por WhatsApp.');
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = btnText;
+          });
+      });
+    })();
 
     // ── NAV: visible al inicio, hover-only al scrollear ──
     (function initNavScroll() {
